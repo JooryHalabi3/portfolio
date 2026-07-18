@@ -4,41 +4,75 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* =========================================================
+   TAILWIND THEME TOKENS
+   تربط متغيرات CSS بكلاسات Tailwind
+   ========================================================= */
+
 @theme inline {
+  /* Base colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
+
+  /* Brand colors */
+  --color-surface: var(--surface);
+  --color-surface-light: var(--surface-light);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-text-secondary: var(--text-secondary);
+  --color-brand-border: var(--brand-border);
+
+  /* Fonts */
+  --font-sans: var(--font-body);
   --font-mono: var(--font-geist-mono);
---font-heading: var(--font-heading);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
+
+  /* Shadcn colors */
   --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Chart colors */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Sidebar colors */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(
+    --sidebar-primary-foreground
+  );
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(
+    --sidebar-accent-foreground
+  );
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Border radius */
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -48,96 +82,265 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* =========================================================
+   GLOBAL DESIGN TOKENS
+   غيّري ألوان الموقع مستقبلًا من هذا المكان فقط
+   ========================================================= */
+
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  /* ===== Portfolio brand colors ===== */
+
+  /* TODO: لون خلفية الموقع الرئيسي */
+  --background: #081b38;
+
+  /* TODO: لون النص الرئيسي */
+  --foreground: #ffffff;
+
+  /* TODO: لون البطاقات والأسطح */
+  --surface: #10284d;
+
+  /* TODO: درجة أفتح للأسطح وحالات Hover */
+  --surface-light: #17345f;
+
+  /* TODO: اللون الذهبي الرئيسي */
+  --gold: #d6ba74;
+
+  /* TODO: اللون الذهبي الفاتح */
+  --gold-light: #e8d6a2;
+
+  /* TODO: لون النصوص الثانوية */
+  --text-secondary: #aab6c8;
+
+  /* TODO: لون الحدود الذهبية الخفيفة */
+  --brand-border: rgb(214 186 116 / 30%);
+
+  /* ===== Shadcn semantic colors ===== */
+
+  --card: #10284d;
+  --card-foreground: #ffffff;
+
+  --popover: #10284d;
+  --popover-foreground: #ffffff;
+
+  --primary: #d6ba74;
+  --primary-foreground: #081b38;
+
+  --secondary: #17345f;
+  --secondary-foreground: #ffffff;
+
+  --muted: #10284d;
+  --muted-foreground: #aab6c8;
+
+  --accent: #d6ba74;
+  --accent-foreground: #081b38;
+
+  --destructive: oklch(0.704 0.191 22.216);
+
+  /*
+    متغيرات shadcn الأساسية.
+    لا نستخدم --border كلون حدود الهوية حتى لا نسبب تعارضًا.
+  */
+  --border: rgb(255 255 255 / 10%);
+  --input: rgb(255 255 255 / 14%);
+  --ring: #d6ba74;
+
+  /* ===== Charts ===== */
+
+  --chart-1: #d6ba74;
+  --chart-2: #e8d6a2;
+  --chart-3: #aab6c8;
+  --chart-4: #17345f;
+  --chart-5: #10284d;
+
+  /* ===== Border radius ===== */
+
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+
+  /* ===== Sidebar ===== */
+
+  --sidebar: #10284d;
+  --sidebar-foreground: #ffffff;
+
+  --sidebar-primary: #d6ba74;
+  --sidebar-primary-foreground: #081b38;
+
+  --sidebar-accent: #17345f;
+  --sidebar-accent-foreground: #ffffff;
+
+  --sidebar-border: rgb(255 255 255 / 10%);
+  --sidebar-ring: #d6ba74;
 }
 
+/*
+  الموقع حاليًا يستخدم هوية داكنة بشكل دائم.
+  أبقينا .dark متوافقة في حال أضفنا تبديل الثيم لاحقًا.
+*/
+
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --background: #081b38;
+  --foreground: #ffffff;
+
+  --card: #10284d;
+  --card-foreground: #ffffff;
+
+  --popover: #10284d;
+  --popover-foreground: #ffffff;
+
+  --primary: #d6ba74;
+  --primary-foreground: #081b38;
+
+  --secondary: #17345f;
+  --secondary-foreground: #ffffff;
+
+  --muted: #10284d;
+  --muted-foreground: #aab6c8;
+
+  --accent: #d6ba74;
+  --accent-foreground: #081b38;
+
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+
+  --border: rgb(255 255 255 / 10%);
+  --input: rgb(255 255 255 / 14%);
+  --ring: #d6ba74;
+
+  --chart-1: #d6ba74;
+  --chart-2: #e8d6a2;
+  --chart-3: #aab6c8;
+  --chart-4: #17345f;
+  --chart-5: #10284d;
+
+  --sidebar: #10284d;
+  --sidebar-foreground: #ffffff;
+
+  --sidebar-primary: #d6ba74;
+  --sidebar-primary-foreground: #081b38;
+
+  --sidebar-accent: #17345f;
+  --sidebar-accent-foreground: #ffffff;
+
+  --sidebar-border: rgb(255 255 255 / 10%);
+  --sidebar-ring: #d6ba74;
 }
+
+/* =========================================================
+   BASE STYLES
+   إعدادات عامة لجميع عناصر الموقع
+   ========================================================= */
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+
   body {
     @apply bg-background text-foreground;
+
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: var(--font-body), sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
-  html {
-    @apply font-sans;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading), serif;
   }
-  html {
-  scroll-behavior: smooth;
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background-color: var(--gold);
+    color: var(--background);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 4px;
+  }
 }
 
-body {
-  background: #081b38;
-  overflow-x: hidden;
+/* =========================================================
+   UTILITY STYLES
+   كلاسات إضافية نستخدمها عند الحاجة
+   ========================================================= */
+
+@layer utilities {
+  /* النص الذهبي المتدرج */
+  .text-gold-gradient {
+    background-image: linear-gradient(
+      135deg,
+      var(--gold-light),
+      var(--gold)
+    );
+    background-clip: text;
+    color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* خلفية زجاجية خفيفة */
+  .glass-surface {
+    background-color: rgb(16 40 77 / 65%);
+    border: 1px solid var(--brand-border);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+
+  /* حد ذهبي خفيف */
+  .brand-border {
+    border-color: var(--brand-border);
+  }
+
+  /* ظل ذهبي خفيف */
+  .gold-glow {
+    box-shadow: 0 0 40px rgb(214 186 116 / 10%);
+  }
+
+  /* إخفاء شريط التمرير مع إبقاء التمرير فعالًا */
+  .scrollbar-hidden {
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
 }
 
-::selection {
-  background: #d6ba74;
-  color: #081b38;
-}
+/* =========================================================
+   ACCESSIBILITY
+   تقليل الحركة لمن يفعّل هذا الخيار في جهازه
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

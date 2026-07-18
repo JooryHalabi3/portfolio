@@ -1,123 +1,60 @@
-import Container from "./ui/Container";
-import Section from "./ui/Section";
-import GlassCard from "./ui/GlassCard";
-import Button from "./ui/button";
-import { ABOUT } from "@/constants/about";
-import Reveal from "@/components/ui/Reveal";
+import { ABOUT } from "@/constants";
+import {
+  Container,
+  Reveal,
+  Section,
+  SectionTitle,
+} from "@/components/ui";
+
 export default function About() {
   return (
     <Section id="about">
       <Container>
+        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+          {/* عنوان القسم */}
+          <Reveal direction="right">
+            <SectionTitle
+              subtitle={ABOUT.label}
+              title={ABOUT.title}
+            />
+          </Reveal>
 
-        <div className="mx-auto max-w-5xl">
-
-          {/* Section Label */}
-
-          <p className="mb-4 text-center uppercase tracking-[6px] text-[#D6BA74]">
-            About
-          </p>
-
-          {/* Heading */}
-
-          <h2
-            className="text-center text-5xl md:text-6xl"
-            style={{
-              fontFamily: "var(--font-heading)",
-            }}
-          >
-            Engineering Digital
-            <br />
-            Experiences With Purpose
-          </h2>
-
-          {/* Card */}
-
-          <GlassCard className="mt-16">
-
-            <div className="grid gap-16 lg:grid-cols-[1fr_280px]">
-
-              {/* Left */}
-
-              <div>
-
-                <p className="leading-9 text-[#AAB6C8]">
-
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Sed vitae justo nec purus posuere faucibus.
-                  Curabitur luctus, erat quis malesuada suscipit,
-                  risus elit volutpat nisi, sed ultrices libero
-                  ligula sit amet nibh.
-
-                </p>
-
-                <p className="mt-8 leading-9 text-[#AAB6C8]">
-
-                  Integer eget neque ut lorem luctus pellentesque.
-                  Nulla facilisi. Praesent tincidunt
-                  sem vel orci feugiat,
-                  non pellentesque est volutpat.
-
-                </p>
-
-                <Button
-                  className="mt-12"
-                  variant="outline"
+          <div>
+            {/* النصوص التعريفية */}
+            <div className="space-y-5">
+              {ABOUT.description.map((paragraph, index) => (
+                <Reveal
+                  key={paragraph}
+                  delay={index * 0.12}
                 >
-                  Download Resume
-                </Button>
-
-              </div>
-
-              {/* Right */}
-
-              <div className="space-y-10">
-
-                <div>
-
-                  <p className="text-sm uppercase tracking-[4px] text-[#D6BA74]">
-                    Based In
+                  <p className="max-w-2xl text-base leading-8 text-[#AAB6C8] md:text-lg">
+                    {paragraph}
                   </p>
-
-                  <h3 className="mt-2 text-2xl">
-                    Saudi Arabia
-                  </h3>
-
-                </div>
-
-                <div>
-
-                  <p className="text-sm uppercase tracking-[4px] text-[#D6BA74]">
-                    Focus
-                  </p>
-
-                  <h3 className="mt-2 text-2xl">
-                    Full Stack
-                    <br />
-                    Development
-                  </h3>
-
-                </div>
-
-                <div>
-
-                  <p className="text-sm uppercase tracking-[4px] text-[#D6BA74]">
-                    Availability
-                  </p>
-
-                  <h3 className="mt-2 text-2xl">
-                    Open to Opportunities
-                  </h3>
-
-                </div>
-
-              </div>
-
+                </Reveal>
+              ))}
             </div>
 
-          </GlassCard>
+            {/* الإحصائيات */}
+            <div className="mt-10 grid gap-4 sm:grid-cols-3">
+              {ABOUT.highlights.map((highlight, index) => (
+                <Reveal
+                  key={highlight.label}
+                  delay={0.2 + index * 0.12}
+                >
+                  <div className="group h-full border-t border-[#D6BA74]/35 py-5 transition-colors duration-300 hover:border-[#D6BA74]">
+                    <p className="font-[var(--font-heading)] text-4xl font-semibold text-[#E8D6A2] md:text-5xl">
+                      {highlight.value}
+                    </p>
 
+                    <p className="mt-2 text-sm leading-6 text-[#AAB6C8]">
+                      {highlight.label}
+                    </p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
         </div>
-
       </Container>
     </Section>
   );
