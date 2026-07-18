@@ -2,7 +2,8 @@ import Section from "./ui/Section";
 import Container from "./ui/Container";
 import GlassCard from "./ui/GlassCard";
 import Button from "./ui/button";
-
+import { PROJECTS } from "@/constants/projects";
+import Reveal from "@/components/ui/Reveal";
 const projects = [
   {
     title: "Project One",
@@ -26,7 +27,7 @@ const projects = [
 
 export default function SelectedWork() {
   return (
-    <Section id="projects">
+    <Section id="work">
       <Container>
 
         <div className="mb-20 text-center">

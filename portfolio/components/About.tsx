@@ -2,7 +2,8 @@ import Container from "./ui/Container";
 import Section from "./ui/Section";
 import GlassCard from "./ui/GlassCard";
 import Button from "./ui/button";
-
+import { ABOUT } from "@/constants/about";
+import Reveal from "@/components/ui/Reveal";
 export default function About() {
   return (
     <Section id="about">

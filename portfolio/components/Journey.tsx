@@ -1,7 +1,8 @@
 import Container from "./ui/Container";
 import GlassCard from "./ui/GlassCard";
 import Section from "./ui/Section";
-
+import { JOURNEY } from "@/constants/journey";
+import Reveal from "@/components/ui/Reveal";
 const journey = [
   {
     year: "2026",

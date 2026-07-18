@@ -1,7 +1,8 @@
 import Container from "./ui/Container";
 import GlassCard from "./ui/GlassCard";
 import Section from "./ui/Section";
-
+import { CAPABILITIES } from "@/constants/capabilities";
+import Reveal from "@/components/ui/Reveal";
 const capabilities = [
   {
     title: "Frontend",
