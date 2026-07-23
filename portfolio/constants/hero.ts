@@ -11,7 +11,7 @@ export const HERO = {
 
   primaryAction: {
     label: "Explore My Work",
-    href: "#work",
+    href: "#projects",
   },
 
   secondaryAction: {

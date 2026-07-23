@@ -11,8 +11,8 @@ export const CONTACT = {
   location: "Saudi Arabia",
 
   socials: {
-    github: "https://github.com/yourusername",
-    linkedin: "https://linkedin.com/in/yourusername",
+    github: "https://github.com/JooryHalabi3",
+    linkedin: "https://www.linkedin.com/in/joory-halabi-978661366",
   },
 
   availability: "Open for Full-time Opportunities",
