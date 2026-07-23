@@ -1,99 +1,56 @@
-import Container from "./ui/Container";
-import GlassCard from "./ui/GlassCard";
-import Section from "./ui/Section";
 import { CAPABILITIES } from "@/constants";
-import Reveal from "@/components/ui/Reveal";
-const capabilities = [
-  {
-    title: "Frontend",
-    description:
-      "Creating modern, responsive and interactive user interfaces.",
-  },
-  {
-    title: "Backend",
-    description:
-      "Designing scalable APIs and efficient server-side systems.",
-  },
-  {
-    title: "Mobile",
-    description:
-      "Developing cross-platform mobile applications.",
-  },
-  {
-    title: "Databases",
-    description:
-      "Structuring reliable and optimized database solutions.",
-  },
-  {
-    title: "UI / UX",
-    description:
-      "Designing clean experiences with attention to usability.",
-  },
-  {
-    title: "Cloud",
-    description:
-      "Deploying and maintaining modern cloud-based applications.",
-  },
-];
+import {
+    Container,
+    GlassCard,
+    Reveal,
+    Section,
+    SectionTitle,
+} from "@/components/ui";
 
 export default function Capabilities() {
-  return (
-    <Section id="skills">
-      <Container>
+    return (
+        <Section id="skills">
+            <Container>
+                <Reveal>
+                    <div className="mb-16 text-center">
+                        <SectionTitle
+                            subtitle="Capabilities"
+                            title="What I Build"
+                            description="My primary areas of expertise across backend engineering, databases, full-stack development, and AI-powered systems."
+                        />
+                    </div>
+                </Reveal>
 
-        <div className="mb-20 text-center">
+                <div className="grid gap-6 md:grid-cols-2">
+                    {CAPABILITIES.map((capability, index) => (
+                        <Reveal
+                            key={capability.title}
+                            delay={index * 0.1}
+                        >
+                            <GlassCard className="h-full p-8 transition-all duration-300 hover:-translate-y-1 hover:border-gold">
+                                <h3 className="font-[var(--font-heading)] text-3xl font-semibold text-gold-light">
+                                    {capability.title}
+                                </h3>
 
-          <p className="uppercase tracking-[6px] text-[#D6BA74]">
-            Capabilities
-          </p>
+                                <p className="mt-5 leading-8 text-text-secondary">
+                                    {capability.description}
+                                </p>
 
-          <h2
-            className="mt-4 text-5xl md:text-6xl"
-            style={{
-              fontFamily: "var(--font-heading)",
-            }}
-          >
-            What I Build
-          </h2>
-
-        </div>
-
-        <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-
-          {capabilities.map((item) => (
-
-            <GlassCard
-              key={item.title}
-              className="group min-h-[260px]"
-            >
-
-              <div className="flex h-full flex-col justify-between">
-
-                <span className="text-6xl text-[#D6BA74]/20 transition group-hover:text-[#D6BA74]/40">
-                  ✦
-                </span>
-
-                <div>
-
-                  <h3 className="text-3xl">
-                    {item.title}
-                  </h3>
-
-                  <p className="mt-5 leading-8 text-[#AAB6C8]">
-                    {item.description}
-                  </p>
-
+                                <div className="mt-8 flex flex-wrap gap-3">
+                                    {capability.skills.map((skill) => (
+                                        <span
+                                            key={skill}
+                                            className="rounded-full border border-brand-border px-4 py-2 text-sm text-foreground transition-colors duration-300 hover:border-gold hover:text-gold-light"
+                                        >
+                                            {skill}
+                                        </span>
+                                    ))}
+                                </div>
+                            </GlassCard>
+                        </Reveal>
+                    ))}
                 </div>
-
-              </div>
-
-            </GlassCard>
-
-          ))}
-
-        </div>
-
-      </Container>
-    </Section>
-  );
+            </Container>
+        </Section>
+    );
 }

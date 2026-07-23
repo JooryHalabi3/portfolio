@@ -1,97 +1,91 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Geist } from "next/font/google";
-import "./globals.css";
 
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  variable: "--font-heading",
-});
+import "./globals.css";
 
 const geist = Geist({
   subsets: ["latin"],
   variable: "--font-body",
+  display: "swap",
+});
+
+const cormorantGaramond = Cormorant_Garamond({
+  subsets: ["latin"],
+  variable: "--font-heading",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  // TODO: غيّري إلى اسمك + المسمى الوظيفي
-  title: "Joory Halabi | Software Engineer",
+  title: {
+    default: "Joory Halabi | Software Engineer",
+    template: "%s | Joory Halabi",
+  },
 
-  // TODO: اكتبي وصفًا يعبر عن خبرتك (حوالي 150-160 حرف)
   description:
-    "Software Engineer specializing in backend development, enterprise systems, AI-powered applications, and scalable software solutions.",
+    "Portfolio of Joory Halabi, a Software Engineer specializing in backend development, full-stack applications, enterprise healthcare systems, and AI-powered solutions.",
 
-  // TODO: أضيفي أو عدلي الكلمات المفتاحية حسب تخصصك
   keywords: [
+    "Joory Halabi",
     "Software Engineer",
     "Backend Developer",
+    "Full Stack Developer",
     "Node.js",
     "FastAPI",
-    "React Native",
-    "AI",
-    "Portfolio",
+    "Python",
+    "JavaScript",
+    "TypeScript",
+    "Next.js",
+    "React",
+    "API Development",
+    "Database Design",
+    "AI Applications",
     "Saudi Arabia",
+    "Software Engineering Portfolio",
   ],
 
-  // TODO: اسم صاحب الموقع
   authors: [{ name: "Joory Halabi" }],
-
-  // TODO: اسم صاحب الموقع
   creator: "Joory Halabi",
-
-  // TODO: بعد نشر الموقع استبدلي بالرابط الحقيقي
-  metadataBase: new URL("https://your-domain.com"),
+  publisher: "Joory Halabi",
 
   openGraph: {
-    // TODO: غيّري العنوان إذا غيرتي عنوان الموقع
     title: "Joory Halabi | Software Engineer",
-
-    // TODO: اكتبي وصف مناسب للمشاركة على LinkedIn وX وغيرها
     description:
-      "Software Engineer specializing in backend systems, enterprise applications, and AI-powered solutions.",
-
-    // TODO: رابط الموقع الحقيقي
-    url: "https://your-domain.com",
-
-    // TODO: اسم الموقع
+      "Software Engineer specializing in scalable backend systems, full-stack applications, healthcare platforms, and AI-powered solutions.",
+    type: "website",
+    locale: "en_US",
     siteName: "Joory Halabi Portfolio",
-
     images: [
       {
-        // TODO: ضعي صورة Open Graph احترافية 1200×630 داخل public
         url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
+        width: 2048,
+        height: 512,
+        alt: "Joory Halabi | Software Engineer and Full Stack Developer",
       },
     ],
-
-    locale: "en_US",
-
-    type: "website",
   },
 
   twitter: {
     card: "summary_large_image",
-
-    // TODO: عنوان المشاركة في تويتر/X
     title: "Joory Halabi | Software Engineer",
-
-    // TODO: وصف المشاركة في تويتر/X
     description:
-      "Backend Engineer • Full Stack Developer • AI Solutions",
-
-    // TODO: نفس صورة Open Graph أو صورة خاصة بتويتر
+      "Software Engineer specializing in scalable backend systems, full-stack applications, and AI-powered solutions.",
     images: ["/og-image.jpg"],
   },
 
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
 
-  icons: {
-    // TODO: استبدلي بالأيقونة الخاصة بموقعك
-    icon: "/favicon.ico",
-  },
+  category: "technology",
 };
 
 export default function RootLayout({
@@ -100,9 +94,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      {/* TODO: إذا أضفتِ نسخة عربية للموقع غيّري lang حسب اللغة */}
-      <body className={`${cormorant.variable} ${geist.variable}`}>
+    <html lang="en" className="scroll-smooth">
+      <body
+        className={`${geist.variable} ${cormorantGaramond.variable} min-h-screen bg-background font-[var(--font-body)] text-foreground antialiased`}
+      >
         {children}
       </body>
     </html>

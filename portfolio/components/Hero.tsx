@@ -1,98 +1,101 @@
-"use client";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
-import { motion } from "framer-motion";
-import Background from "./ui/Background";
-import Container from "./ui/Container";
-import Button from "./ui/button";
-import HeroDecoration from "./ui/HeroDecoration";
+import { HERO } from "@/constants";
+import {
+  Container,
+  Reveal,
+  Section,
+} from "@/components/ui";
 
 export default function Hero() {
   return (
-    <section
+    <Section
       id="home"
-      className="relative flex min-h-screen items-center overflow-hidden"
+      className="relative flex min-h-screen items-center overflow-hidden pt-28"
     >
-      <Background />
-      <HeroDecoration />
+      {/* Decorative blueprint lines */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+      >
+        <div className="absolute top-32 right-[8%] h-px w-40 bg-gold/20" />
+        <div className="absolute top-32 right-[8%] h-40 w-px bg-gold/20" />
+
+        <div className="absolute bottom-24 left-[6%] h-px w-28 bg-gold/15" />
+        <div className="absolute bottom-24 left-[6%] h-28 w-px bg-gold/15" />
+
+        <div className="absolute top-1/3 right-[15%] h-56 w-56 rounded-full border border-gold/10" />
+      </div>
 
       <Container>
-        <div className="relative z-10 flex min-h-screen flex-col items-center justify-center text-center">
+        <div className="relative z-10 max-w-5xl">
+          <Reveal>
+            <div className="flex items-center gap-4">
+              <span className="h-px w-10 bg-gold" />
 
-          {/* Monogram */}
-          <motion.p
-            initial={{ opacity: 0, y: -25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="mb-6 text-6xl font-semibold tracking-[14px] text-[#D6BA74]"
-            style={{
-              fontFamily: "var(--font-heading)",
-            }}
-          >
-            JH
-          </motion.p>
+              <p className="text-xs font-medium uppercase tracking-[0.35em] text-gold sm:text-sm">
+                {HERO.eyebrow}
+              </p>
+            </div>
+          </Reveal>
 
-          {/* Name */}
-          <motion.h1
-            initial={{ opacity: 0, y: 35 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: .15 }}
-            className="text-6xl md:text-8xl"
-            style={{
-              fontFamily: "var(--font-heading)",
-            }}
-          >
-            JOORY HALABI
-          </motion.h1>
+          <Reveal delay={0.1}>
+            <h1 className="mt-7 font-[var(--font-heading)] text-5xl font-semibold leading-[0.95] tracking-[-0.03em] text-foreground sm:text-6xl lg:text-8xl">
+              <span className="block">
+                {HERO.heading.firstLine}
+              </span>
 
-          {/* Role */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: .3 }}
-            className="mt-6 uppercase tracking-[6px] text-[#D6BA74]"
-          >
-            Software Engineer
-          </motion.p>
+              <span className="mt-2 block text-gold-light">
+                {HERO.heading.highlightedLine}
+              </span>
+            </h1>
+          </Reveal>
 
-          {/* Description */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: .45 }}
-            className="mt-10 max-w-2xl text-lg leading-9 text-[#AAB6C8]"
-          >
-            Building thoughtful digital experiences with elegant design,
-            clean architecture, and meaningful user experiences.
-          </motion.p>
+          <Reveal delay={0.2}>
+            <p className="mt-8 max-w-2xl text-base leading-8 text-text-secondary sm:text-lg sm:leading-9">
+              {HERO.description}
+            </p>
+          </Reveal>
 
-          {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: .6 }}
-            className="mt-14"
-          >
-            <Button>
-              Selected Work
-            </Button>
-          </motion.div>
+          <Reveal delay={0.3}>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Link
+                href={HERO.primaryAction.href}
+                className="group inline-flex items-center gap-2 rounded-full border border-gold bg-gold px-7 py-3 text-sm font-medium text-background transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-light"
+              >
+                {HERO.primaryAction.label}
 
-          {/* Scroll Indicator */}
-          <motion.div
-            animate={{
-              y: [0, 10, 0],
-            }}
-            transition={{
-              repeat: Infinity,
-              duration: 2,
-            }}
-            className="absolute bottom-14 text-sm tracking-[4px] text-[#AAB6C8]"
-          >
-            SCROLL
-          </motion.div>
+                <ArrowRight
+                  aria-hidden="true"
+                  className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                />
+              </Link>
 
+              <Link
+                href={HERO.secondaryAction.href}
+                className="inline-flex items-center rounded-full border border-brand-border bg-white/[0.02] px-7 py-3 text-sm font-medium text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-gold hover:text-gold-light"
+              >
+                {HERO.secondaryAction.label}
+              </Link>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.4}>
+            <div className="mt-14 flex items-center gap-3">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold opacity-40" />
+
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gold" />
+              </span>
+
+              <p className="text-sm text-text-secondary">
+                {HERO.availability}
+              </p>
+            </div>
+          </Reveal>
         </div>
       </Container>
-    </section>
+    </Section>
   );
 }
