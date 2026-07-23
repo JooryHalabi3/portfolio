@@ -1,8 +1,8 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
-import SelectedWork from "@/components/SelectedWork";
 import Capabilities from "@/components/Capabilities";
+import SelectedWork from "@/components/SelectedWork";
 import Journey from "@/components/Journey";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -14,15 +14,10 @@ export default function Home() {
 
       <main className="relative overflow-hidden">
         <Hero />
-
         <About />
-
-        <SelectedWork />
-
         <Capabilities />
-
+        <SelectedWork />
         <Journey />
-
         <Contact />
       </main>
 

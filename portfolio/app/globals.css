@@ -62,13 +62,9 @@
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(
-    --sidebar-primary-foreground
-  );
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
   --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(
-    --sidebar-accent-foreground
-  );
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
@@ -243,7 +239,7 @@
 
     min-height: 100vh;
     overflow-x: hidden;
-    font-family: var(--font-geist), sans-serif;
+    font-family: var(--font-body), sans-serif;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -284,13 +280,12 @@
    ========================================================= */
 
 @layer utilities {
+
   /* النص الذهبي المتدرج */
   .text-gold-gradient {
-    background-image: linear-gradient(
-      135deg,
-      var(--gold-light),
-      var(--gold)
-    );
+    background-image: linear-gradient(135deg,
+        var(--gold-light),
+        var(--gold));
     background-clip: text;
     color: transparent;
     -webkit-background-clip: text;
