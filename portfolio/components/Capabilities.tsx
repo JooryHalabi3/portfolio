@@ -12,7 +12,7 @@ export default function Capabilities() {
         <Section id="skills">
             <Container>
                 <Reveal>
-                    <div className="mb-16 text-center">
+                    <div className="mb-16 flex justify-center text-center md:mb-20">
                         <SectionTitle
                             subtitle="Capabilities"
                             title="What I Build"
