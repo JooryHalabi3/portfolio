@@ -8,7 +8,8 @@ import {
     Section,
     SectionTitle,
 } from "@/components/ui";
-
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 export default function SelectedWork() {
     return (
         <Section id="projects">
@@ -70,6 +71,14 @@ export default function SelectedWork() {
                                                 </span>
                                             ))}
                                         </div>
+                                        <Link
+  href={`/projects/${project.slug}`}
+  className="group mt-8 inline-flex w-fit items-center gap-2 text-sm font-medium uppercase tracking-[0.18em] text-gold transition-colors hover:text-gold-light"
+>
+  View Project
+
+  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+</Link>
                                     </div>
                                 </div>
                             </GlassCard>

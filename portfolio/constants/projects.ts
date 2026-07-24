@@ -1,5 +1,6 @@
 export const PROJECTS = [
   {
+    slug: "tanabah",
     title: "Tanabah",
 
     category: "AI • Mobile • Healthcare",
@@ -25,6 +26,8 @@ export const PROJECTS = [
   },
 
   {
+      slug: "hospital-information-system",
+
     title: "Hospital Information System",
 
     category: "Enterprise System",
@@ -49,6 +52,7 @@ export const PROJECTS = [
   },
 
   {
+      slug: "hospital-maintenance",
     title: "Technical Support & Maintenance",
 
     category: "Enterprise Platform",
