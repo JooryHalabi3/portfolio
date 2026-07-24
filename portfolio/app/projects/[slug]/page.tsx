@@ -5,8 +5,9 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { FaGithub } from "react-icons/fa6";
 
-import { PROJECTS, SITE } from "@/constants";
+import ProjectGallery from "@/components/ProjectGallery";
 import { Container, GlassCard } from "@/components/ui";
+import { PROJECTS, SITE } from "@/constants";
 
 type ProjectPageProps = {
   params: Promise<{
@@ -54,11 +55,13 @@ export default async function ProjectPage({
     notFound();
   }
 
+  const gallery = project.gallery ?? [];
+
   const hasGithubLink =
-    project.github && project.github !== "#";
+    Boolean(project.github) && project.github !== "#";
 
   const hasLiveLink =
-    project.live && project.live !== "#";
+    Boolean(project.live) && project.live !== "#";
 
   return (
     <div className="min-h-screen bg-background">
@@ -69,7 +72,11 @@ export default async function ProjectPage({
               href="/#projects"
               className="inline-flex items-center gap-2 text-sm text-text-secondary transition-colors hover:text-gold-light"
             >
-              <ArrowLeft className="h-4 w-4" />
+              <ArrowLeft
+                aria-hidden="true"
+                className="h-4 w-4"
+              />
+
               Back to projects
             </Link>
 
@@ -98,6 +105,7 @@ export default async function ProjectPage({
               {project.description}
             </p>
 
+            {/* Project cover */}
             <GlassCard className="relative mt-12 aspect-video overflow-hidden">
               <Image
                 src={project.image}
@@ -109,6 +117,7 @@ export default async function ProjectPage({
               />
             </GlassCard>
 
+            {/* Technologies */}
             <div className="mt-12 grid gap-8 border-t border-brand-border pt-10 md:grid-cols-[0.7fr_2fr]">
               <p className="text-xs font-medium uppercase tracking-[0.25em] text-gold">
                 Technologies
@@ -126,6 +135,7 @@ export default async function ProjectPage({
               </div>
             </div>
 
+            {/* Project links */}
             {(hasGithubLink || hasLiveLink) && (
               <div className="mt-12 flex flex-wrap gap-4 border-t border-brand-border pt-10">
                 {hasGithubLink && (
@@ -135,7 +145,11 @@ export default async function ProjectPage({
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 rounded-full border border-gold px-6 py-3 text-sm text-gold transition-colors hover:bg-gold hover:text-background"
                   >
-                    <FaGithub className="h-4 w-4" />
+                    <FaGithub
+                      aria-hidden="true"
+                      className="h-4 w-4"
+                    />
+
                     View Code
                   </a>
                 )}
@@ -148,10 +162,19 @@ export default async function ProjectPage({
                     className="inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 text-sm text-background transition-colors hover:bg-gold-light"
                   >
                     Live Project
-                    <ArrowUpRight className="h-4 w-4" />
+
+                    <ArrowUpRight
+                      aria-hidden="true"
+                      className="h-4 w-4"
+                    />
                   </a>
                 )}
               </div>
+            )}
+
+            {/* Project gallery */}
+            {gallery.length > 0 && (
+              <ProjectGallery images={gallery} />
             )}
           </article>
         </Container>
