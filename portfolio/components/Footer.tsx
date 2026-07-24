@@ -8,13 +8,14 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
+    
     <footer className="border-t border-brand-border bg-background">
       <div className="mx-auto max-w-7xl px-6 py-12 lg:py-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr_0.8fr]">
           {/* Brand */}
           <div>
             <Link
-              href="#home"
+href="/#home"
               className="font-[var(--font-heading)] text-3xl font-semibold text-gold-light transition-colors duration-300 hover:text-gold"
             >
               {SITE.name}
@@ -53,7 +54,7 @@ export default function Footer() {
               {navigation.map((item) => (
                 <Link
                   key={item.href}
-                  href={item.href}
+href={`/${item.href}`}
                   className="w-fit text-sm text-text-secondary transition-colors duration-300 hover:text-gold-light"
                 >
                   {item.title}
@@ -116,7 +117,7 @@ export default function Footer() {
           </p>
 
           <a
-            href="#home"
+href="#top"
             className="w-fit uppercase tracking-[0.18em] transition-colors duration-300 hover:text-gold-light"
           >
             Back to top
