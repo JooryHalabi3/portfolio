@@ -103,7 +103,7 @@ export const PROJECTS = [
 
   contributors: [
     {
-      name: "",
+      name: "اؤلايلريارل",
       role: "Frontend Developer",
       linkedin: "",
     },
