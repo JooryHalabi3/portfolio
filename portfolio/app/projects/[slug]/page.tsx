@@ -12,6 +12,7 @@ import {
   FaGithub,
   FaLinkedinIn,
 } from "react-icons/fa6";
+
 import Footer from "@/components/Footer";
 import ProjectGallery from "@/components/ProjectGallery";
 import { Container, GlassCard } from "@/components/ui";
@@ -131,19 +132,11 @@ export default async function ProjectPage({
         )
       : [];
 
-  const hasGithubLink =
-    Boolean(project.github) &&
-    project.github !== "#";
-
-  const hasLiveLink =
-    Boolean(project.live) &&
-    project.live !== "#";
-
-  const hasProjectLinks =
-    hasGithubLink || hasLiveLink;
-
   return (
-    <div className="min-h-screen bg-background">
+    <div
+      id="top"
+      className="min-h-screen bg-background"
+    >
       {/* Header */}
       <header className="border-b border-brand-border">
         <Container>
@@ -173,162 +166,160 @@ export default async function ProjectPage({
       <main className="py-16 sm:py-24">
         <Container>
           <article className="mx-auto max-w-5xl">
-         {/* Hero */}
-<section className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_12rem] lg:items-center">
-  <div>
-    <p className="text-sm font-medium uppercase tracking-[0.3em] text-gold">
-      {project.category}
-    </p>
+            {/* Hero */}
+            <section>
+              <p className="text-sm font-medium uppercase tracking-[0.3em] text-gold">
+                {project.category}
+              </p>
 
-    <h1 className="mt-5 font-[var(--font-heading)] text-5xl font-medium tracking-[-0.03em] text-gold-gradient sm:text-6xl lg:text-7xl">
-      {project.title}
-    </h1>
+              <div className="mt-5 grid gap-8 lg:grid-cols-[minmax(0,1fr)_12rem] lg:items-center">
+                <h1 className="font-[var(--font-heading)] text-5xl font-medium tracking-[-0.03em] text-gold-gradient sm:text-6xl lg:text-7xl">
+                  {project.title}
+                </h1>
 
-    <p className="mt-7 max-w-3xl text-lg leading-9 text-text-secondary">
-      {project.description}
-    </p>
-  </div>
+                <div className="lg:justify-self-end">
+                  <ProjectLinks
+                    github={project.github}
+                    live={project.live}
+                  />
+                </div>
+              </div>
+            </section>
 
-<div className="lg:translate-y-10 lg:justify-self-end">
-        <ProjectLinks
-      github={project.github}
-      live={project.live}
-      stacked
-    />
-  </div>
-</section>
-
-            {/* Project gallery */}
+            {/* Gallery */}
             {gallery.length > 0 && (
               <ProjectGallery images={gallery} />
             )}
 
-            {/* Basic information */}
-            {(organization ||
+            {/* Project overview */}
+            {(overview ||
+              organization ||
               duration ||
               projectType ||
               status) && (
               <section className="mt-16 border-t border-brand-border pt-12">
-                <p className="text-xs font-medium uppercase tracking-[0.25em] text-gold">
-                  Project Details
-                </p>
-
-                <h2 className="mt-4 font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
-                  Basic Information
+                <h2 className="font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
+                  Project Overview
                 </h2>
 
-                <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                  {organization && (
-                    <GlassCard className="p-6">
-                      <div className="flex items-start gap-4">
-                        <Building2
-                          aria-hidden="true"
-                          className="mt-1 h-5 w-5 shrink-0 text-gold"
-                        />
+                {overview && (
+                  <p className="mt-6 max-w-4xl text-base leading-8 text-text-secondary sm:text-lg sm:leading-9">
+                    {overview}
+                  </p>
+                )}
 
-                        <div>
-                          <p className="text-xs uppercase tracking-[0.2em] text-gold">
-                            Organization
-                          </p>
+                {(organization ||
+                  duration ||
+                  projectType ||
+                  status) && (
+                  <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                    {/* Organization */}
+                    {organization && (
+                      <GlassCard className="w-full p-4 sm:w-[90%] sm:justify-self-end">
+                        <div className="flex items-start gap-3">
+                          <Building2
+                            aria-hidden="true"
+                            className="mt-1 h-4 w-4 shrink-0 text-gold"
+                          />
 
-                          <p className="mt-2 leading-7 text-foreground">
-                            {organization}
-                          </p>
+                          <div>
+                            <p className="text-[11px] uppercase tracking-[0.16em] text-gold">
+                              Organization
+                            </p>
+
+                            <p className="mt-1.5 text-sm leading-6 text-foreground">
+                              {organization}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    </GlassCard>
-                  )}
+                      </GlassCard>
+                    )}
 
-                  {duration && (
-                    <GlassCard className="p-6">
-                      <div className="flex items-start gap-4">
-                        <CalendarDays
-                          aria-hidden="true"
-                          className="mt-1 h-5 w-5 shrink-0 text-gold"
-                        />
+                    {/* Duration */}
+                    {duration && (
+                      <GlassCard className="w-full p-4 sm:w-[90%] sm:justify-self-start">
+                        <div className="flex items-start gap-3">
+                          <CalendarDays
+                            aria-hidden="true"
+                            className="mt-1 h-4 w-4 shrink-0 text-gold"
+                          />
 
-                        <div>
-                          <p className="text-xs uppercase tracking-[0.2em] text-gold">
-                            Duration
-                          </p>
+                          <div>
+                            <p className="text-[11px] uppercase tracking-[0.16em] text-gold">
+                              Duration
+                            </p>
 
-                          <p className="mt-2 leading-7 text-foreground">
-                            {duration}
-                          </p>
+                            <p className="mt-1.5 text-sm leading-6 text-foreground">
+                              {duration}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    </GlassCard>
-                  )}
+                      </GlassCard>
+                    )}
 
-                  {projectType && (
-                    <GlassCard className="p-6">
-                      <div className="flex items-start gap-4">
-                        <UserRound
-                          aria-hidden="true"
-                          className="mt-1 h-5 w-5 shrink-0 text-gold"
-                        />
+                    {/* Project type */}
+                    {projectType && (
+                      <GlassCard className="w-full p-4 sm:w-[90%] sm:justify-self-end">
+                        <div className="flex items-start gap-3">
+                          <UserRound
+                            aria-hidden="true"
+                            className="mt-1 h-4 w-4 shrink-0 text-gold"
+                          />
 
-                        <div>
-                          <p className="text-xs uppercase tracking-[0.2em] text-gold">
-                            Project Type
-                          </p>
+                          <div>
+                            <p className="text-[11px] uppercase tracking-[0.16em] text-gold">
+                              Project Type
+                            </p>
 
-                          <p className="mt-2 leading-7 text-foreground">
-                            {projectType}
-                          </p>
+                            <p className="mt-1.5 text-sm leading-6 text-foreground">
+                              {projectType}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    </GlassCard>
-                  )}
+                      </GlassCard>
+                    )}
 
-                  {status && (
-                    <GlassCard className="p-6">
-                      <div className="flex items-start gap-4">
-                        <span
-                          aria-hidden="true"
-                          className="mt-2 h-3 w-3 shrink-0 rounded-full bg-gold"
-                        />
+                    {/* Status */}
+                    {status && (
+                      <GlassCard className="w-full p-4 sm:w-[90%] sm:justify-self-start">
+                        <div className="flex items-start gap-3">
+                          <span
+                            aria-hidden="true"
+                            className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full bg-gold"
+                          />
 
-                        <div>
-                          <p className="text-xs uppercase tracking-[0.2em] text-gold">
-                            Status
-                          </p>
+                          <div>
+                            <p className="text-[11px] uppercase tracking-[0.16em] text-gold">
+                              Status
+                            </p>
 
-                          <p className="mt-2 leading-7 text-foreground">
-                            {status}
-                          </p>
+                            <p className="mt-1.5 text-sm leading-6 text-foreground">
+                              {status}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    </GlassCard>
-                  )}
-                </div>
+                      </GlassCard>
+                    )}
+                  </div>
+                )}
               </section>
-            )}
-
-            {/* Overview */}
-            {overview && (
-              <ProjectTextSection
-                eyebrow="About the Project"
-                title="Project Overview"
-                description={overview}
-              />
             )}
 
             {/* My role */}
             {(role || roleDescription) && (
               <section className="mt-16 border-t border-brand-border pt-12">
-                <p className="text-xs font-medium uppercase tracking-[0.25em] text-gold">
+                <h2 className="font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
                   My Role
-                </p>
+                </h2>
 
                 {role && (
-                  <h2 className="mt-4 font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
+                  <p className="mt-5 text-lg font-medium text-gold-light">
                     {role}
-                  </h2>
+                  </p>
                 )}
 
                 {roleDescription && (
-                  <p className="mt-6 max-w-4xl text-base leading-8 text-text-secondary sm:text-lg sm:leading-9">
+                  <p className="mt-4 max-w-4xl text-base leading-8 text-text-secondary sm:text-lg sm:leading-9">
                     {roleDescription}
                   </p>
                 )}
@@ -338,8 +329,7 @@ export default async function ProjectPage({
             {/* Contributions */}
             {contributions.length > 0 && (
               <ProjectListSection
-                eyebrow="Responsibilities"
-                title="What I Worked On"
+                title="Contributions"
                 items={contributions}
               />
             )}
@@ -347,7 +337,6 @@ export default async function ProjectPage({
             {/* Features */}
             {features.length > 0 && (
               <ProjectListSection
-                eyebrow="System Capabilities"
                 title="Key Features"
                 items={features}
               />
@@ -356,7 +345,6 @@ export default async function ProjectPage({
             {/* Challenges */}
             {challenges.length > 0 && (
               <ProjectListSection
-                eyebrow="Learning Experience"
                 title="Challenges"
                 items={challenges}
               />
@@ -364,12 +352,8 @@ export default async function ProjectPage({
 
             {/* Technologies */}
             <section className="mt-16 border-t border-brand-border pt-12">
-              <p className="text-xs font-medium uppercase tracking-[0.25em] text-gold">
-                Technology
-              </p>
-
-              <h2 className="mt-4 font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
-                Technologies Used
+              <h2 className="font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
+                Technologies
               </h2>
 
               <div className="mt-8 flex flex-wrap gap-3">
@@ -389,12 +373,8 @@ export default async function ProjectPage({
             {/* Deployment */}
             {deployment && (
               <section className="mt-16 border-t border-brand-border pt-12">
-                <p className="text-xs font-medium uppercase tracking-[0.25em] text-gold">
-                  Infrastructure
-                </p>
-
-                <h2 className="mt-4 font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
-                  Deployment Environments
+                <h2 className="font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
+                  Deployment
                 </h2>
 
                 <div className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -424,11 +404,7 @@ export default async function ProjectPage({
             {/* Team */}
             {contributors.length > 0 && (
               <section className="mt-16 border-t border-brand-border pt-12">
-                <p className="text-xs font-medium uppercase tracking-[0.25em] text-gold">
-                  Collaboration
-                </p>
-
-                <h2 className="mt-4 font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
+                <h2 className="font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
                   Project Team
                 </h2>
 
@@ -457,6 +433,7 @@ export default async function ProjectPage({
                             className="mt-5 inline-flex items-center gap-2 text-sm text-gold transition-colors hover:text-gold-light"
                           >
                             <FaLinkedinIn className="h-4 w-4" />
+
                             LinkedIn
                           </a>
                         )}
@@ -469,26 +446,20 @@ export default async function ProjectPage({
           </article>
         </Container>
       </main>
-            <Footer />
 
+      <Footer />
     </div>
   );
 }
 
-/* =========================================================
-   Project links
-   ========================================================= */
-
 type ProjectLinksProps = {
   github?: string;
   live?: string;
-  stacked?: boolean;
 };
 
 function ProjectLinks({
   github,
   live,
-  stacked = false,
 }: ProjectLinksProps) {
   const hasGithubLink =
     Boolean(github) && github !== "#";
@@ -501,14 +472,8 @@ function ProjectLinks({
   }
 
   return (
-    <div
-      className={
-        stacked
-          ? "flex w-full flex-col gap-3 sm:w-48"
-          : "mt-8 flex flex-wrap gap-4"
-      }
-    >
-   {hasGithubLink && (
+    <div className="flex w-full flex-col gap-3 sm:w-48">
+      {hasGithubLink && (
         <a
           href={github}
           target="_blank"
@@ -541,61 +506,20 @@ function ProjectLinks({
       )}
     </div>
   );
-} 
-/* =========================================================
-   Text section
-   ========================================================= */
-
-type ProjectTextSectionProps = {
-  eyebrow: string;
-  title: string;
-  description: string;
-};
-
-function ProjectTextSection({
-  eyebrow,
-  title,
-  description,
-}: ProjectTextSectionProps) {
-  return (
-    <section className="mt-16 border-t border-brand-border pt-12">
-      <p className="text-xs font-medium uppercase tracking-[0.25em] text-gold">
-        {eyebrow}
-      </p>
-
-      <h2 className="mt-4 font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
-        {title}
-      </h2>
-
-      <p className="mt-6 max-w-4xl text-base leading-8 text-text-secondary sm:text-lg sm:leading-9">
-        {description}
-      </p>
-    </section>
-  );
 }
 
-/* =========================================================
-   List section
-   ========================================================= */
-
 type ProjectListSectionProps = {
-  eyebrow: string;
   title: string;
   items: string[];
 };
 
 function ProjectListSection({
-  eyebrow,
   title,
   items,
 }: ProjectListSectionProps) {
   return (
     <section className="mt-16 border-t border-brand-border pt-12">
-      <p className="text-xs font-medium uppercase tracking-[0.25em] text-gold">
-        {eyebrow}
-      </p>
-
-      <h2 className="mt-4 font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
+      <h2 className="font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
         {title}
       </h2>
 
