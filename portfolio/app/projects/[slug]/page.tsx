@@ -4,10 +4,23 @@ import { notFound } from "next/navigation";
 import {
   ArrowLeft,
   ArrowUpRight,
+  Braces,
   Building2,
   CalendarDays,
+  Cloud,
+  Cookie,
+  Mail,
+  Server,
   UserRound,
 } from "lucide-react";
+import {
+SiCss,
+  SiExpress,
+  SiHtml5,
+  SiJavascript,
+  SiMysql,
+  SiNodedotjs,
+} from "react-icons/si";
 import {
   FaGithub,
   FaLinkedinIn,
@@ -119,10 +132,13 @@ export default async function ProjectPage({
       ? project.challenges ?? []
       : [];
 
-  const deployment =
-    "deployment" in project
-      ? project.deployment
-      : undefined;
+const deployment =
+  "deployment" in project && project.deployment
+    ? project.deployment
+    : {
+        hospital: "",
+        demo: "",
+      };
 
   const contributors =
     "contributors" in project
@@ -351,55 +367,71 @@ export default async function ProjectPage({
             )}
 
             {/* Technologies */}
-            <section className="mt-16 border-t border-brand-border pt-12">
-              <h2 className="font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
-                Technologies
-              </h2>
+<section className="mt-16 border-t border-brand-border pt-12">
+  <h2 className="font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
+    Technologies
+  </h2>
 
-              <div className="mt-8 flex flex-wrap gap-3">
-                {project.technologies.map(
-                  (technology) => (
-                    <span
-                      key={technology}
-                      className="rounded-full border border-brand-border bg-white/[0.02] px-4 py-2 text-sm text-foreground transition-colors hover:border-gold hover:text-gold-light"
-                    >
-                      {technology}
-                    </span>
-                  ),
-                )}
-              </div>
-            </section>
+  <div className="mt-8 flex flex-wrap gap-3">
+    {project.technologies.map((technology) => (
+      <span
+        key={technology}
+        className="inline-flex items-center gap-2 rounded-full border border-brand-border bg-white/[0.02] px-4 py-2 text-sm text-foreground transition-colors hover:border-gold hover:text-gold-light"
+      >
+        <TechnologyIcon name={technology} />
+
+        {technology}
+      </span>
+    ))}
+  </div>
+</section>
 
             {/* Deployment */}
-            {deployment && (
-              <section className="mt-16 border-t border-brand-border pt-12">
-                <h2 className="font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
-                  Deployment
-                </h2>
+{(deployment.hospital || deployment.demo) && (
+  <section className="border-t border-brand-border pt-12">
+    <h2 className="font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
+      Deployment
+    </h2>
 
-                <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                  <GlassCard className="p-6">
-                    <p className="text-xs uppercase tracking-[0.2em] text-gold">
-                      Hospital Environment
-                    </p>
+    <div className="mt-8 grid gap-4 sm:grid-cols-2">
+      {deployment.hospital && (
+        <GlassCard className="w-full p-4 sm:w-[90%] sm:justify-self-end">
+          <div className="flex items-start gap-3">
+            <Server className="mt-0.5 h-5 w-5 shrink-0 text-gold" />
 
-                    <p className="mt-3 leading-7 text-text-secondary">
-                      {deployment.hospital}
-                    </p>
-                  </GlassCard>
+            <div>
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-gold">
+                Hospital Environment
+              </p>
 
-                  <GlassCard className="p-6">
-                    <p className="text-xs uppercase tracking-[0.2em] text-gold">
-                      Demo Environment
-                    </p>
+              <p className="mt-2 leading-7 text-foreground">
+                {deployment.hospital}
+              </p>
+            </div>
+          </div>
+        </GlassCard>
+      )}
 
-                    <p className="mt-3 leading-7 text-text-secondary">
-                      {deployment.demo}
-                    </p>
-                  </GlassCard>
-                </div>
-              </section>
-            )}
+      {deployment.demo && (
+        <GlassCard className="w-full p-4 sm:w-[90%] sm:justify-self-start">
+          <div className="flex items-start gap-3">
+            <Cloud className="mt-0.5 h-5 w-5 shrink-0 text-gold" />
+
+            <div>
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-gold">
+                Demo Environment
+              </p>
+
+              <p className="mt-2 leading-7 text-foreground">
+                {deployment.demo}
+              </p>
+            </div>
+          </div>
+        </GlassCard>
+      )}
+    </div>
+  </section>
+)}
 
             {/* Team */}
             {contributors.length > 0 && (
@@ -540,4 +572,64 @@ function ProjectListSection({
       </ul>
     </section>
   );
+  
+}
+function TechnologyIcon({
+  name,
+}: {
+  name: string;
+}) {
+  const iconClassName = "h-4 w-4 shrink-0 text-gold";
+
+  switch (name.toLowerCase()) {
+    case "node.js":
+      return (
+        <SiNodedotjs className={iconClassName} />
+      );
+
+    case "express.js":
+      return (
+        <SiExpress className={iconClassName} />
+      );
+
+    case "javascript":
+      return (
+        <SiJavascript className={iconClassName} />
+      );
+
+    case "mysql":
+      return (
+        <SiMysql className={iconClassName} />
+      );
+
+    case "html":
+      return (
+        <SiHtml5 className={iconClassName} />
+      );
+
+    case "css":
+      return (
+        <SiCss className={iconClassName} />
+      );
+
+    case "rest apis":
+      return (
+        <Braces className={iconClassName} />
+      );
+
+    case "express session":
+      return (
+        <Cookie className={iconClassName} />
+      );
+
+    case "nodemailer":
+      return (
+        <Mail className={iconClassName} />
+      );
+
+    default:
+      return (
+        <Braces className={iconClassName} />
+      );
+  }
 }
