@@ -14,7 +14,7 @@ import {
   UserRound,
 } from "lucide-react";
 import {
-SiCss,
+  SiCss,
   SiExpress,
   SiHtml5,
   SiJavascript,
@@ -132,10 +132,10 @@ export default async function ProjectPage({
       ? project.challenges ?? []
       : [];
 
-const deployment =
-  "deployment" in project && project.deployment
-    ? project.deployment
-    : {
+  const deployment =
+    "deployment" in project && project.deployment
+      ? project.deployment
+      : {
         hospital: "",
         demo: "",
       };
@@ -143,9 +143,9 @@ const deployment =
   const contributors =
     "contributors" in project
       ? (project.contributors ?? []).filter(
-          (contributor) =>
-            contributor.name?.trim() !== "",
-        )
+        (contributor) =>
+          contributor.name?.trim() !== "",
+      )
       : [];
 
   return (
@@ -213,113 +213,113 @@ const deployment =
               duration ||
               projectType ||
               status) && (
-              <section className="mt-16 border-t border-brand-border pt-12">
-                <h2 className="font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
-                  Project Overview
-                </h2>
+                <section className="mt-16 border-t border-brand-border pt-12">
+                  <h2 className="font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
+                    Project Overview
+                  </h2>
 
-                {overview && (
-                  <p className="mt-6 max-w-4xl text-base leading-8 text-text-secondary sm:text-lg sm:leading-9">
-                    {overview}
-                  </p>
-                )}
+                  {overview && (
+                    <p className="mt-6 max-w-4xl text-base leading-8 text-text-secondary sm:text-lg sm:leading-9">
+                      {overview}
+                    </p>
+                  )}
 
-                {(organization ||
-                  duration ||
-                  projectType ||
-                  status) && (
-                  <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                    {/* Organization */}
-                    {organization && (
-                      <GlassCard className="w-full p-4 sm:w-[90%] sm:justify-self-end">
-                        <div className="flex items-start gap-3">
-                          <Building2
-                            aria-hidden="true"
-                            className="mt-1 h-4 w-4 shrink-0 text-gold"
-                          />
+                  {(organization ||
+                    duration ||
+                    projectType ||
+                    status) && (
+                      <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                        {/* Organization */}
+                        {organization && (
+                          <GlassCard className="w-full p-4 sm:w-[90%] sm:justify-self-end">
+                            <div className="flex items-start gap-3">
+                              <Building2
+                                aria-hidden="true"
+                                className="mt-1 h-4 w-4 shrink-0 text-gold"
+                              />
 
-                          <div>
-                            <p className="text-[11px] uppercase tracking-[0.16em] text-gold">
-                              Organization
-                            </p>
+                              <div>
+                                <p className="text-[11px] uppercase tracking-[0.16em] text-gold">
+                                  Organization
+                                </p>
 
-                            <p className="mt-1.5 text-sm leading-6 text-foreground">
-                              {organization}
-                            </p>
-                          </div>
-                        </div>
-                      </GlassCard>
+                                <p className="mt-1.5 text-sm leading-6 text-foreground">
+                                  {organization}
+                                </p>
+                              </div>
+                            </div>
+                          </GlassCard>
+                        )}
+
+                        {/* Duration */}
+                        {duration && (
+                          <GlassCard className="w-full p-4 sm:w-[90%] sm:justify-self-start">
+                            <div className="flex items-start gap-3">
+                              <CalendarDays
+                                aria-hidden="true"
+                                className="mt-1 h-4 w-4 shrink-0 text-gold"
+                              />
+
+                              <div>
+                                <p className="text-[11px] uppercase tracking-[0.16em] text-gold">
+                                  Duration
+                                </p>
+
+                                <p className="mt-1.5 text-sm leading-6 text-foreground">
+                                  {duration}
+                                </p>
+                              </div>
+                            </div>
+                          </GlassCard>
+                        )}
+
+                        {/* Project type */}
+                        {projectType && (
+                          <GlassCard className="w-full p-4 sm:w-[90%] sm:justify-self-end">
+                            <div className="flex items-start gap-3">
+                              <UserRound
+                                aria-hidden="true"
+                                className="mt-1 h-4 w-4 shrink-0 text-gold"
+                              />
+
+                              <div>
+                                <p className="text-[11px] uppercase tracking-[0.16em] text-gold">
+                                  Project Type
+                                </p>
+
+                                <p className="mt-1.5 text-sm leading-6 text-foreground">
+                                  {projectType}
+                                </p>
+                              </div>
+                            </div>
+                          </GlassCard>
+                        )}
+
+                        {/* Status */}
+                        {status && (
+                          <GlassCard className="w-full p-4 sm:w-[90%] sm:justify-self-start">
+                            <div className="flex items-start gap-3">
+                              <span
+                                aria-hidden="true"
+                                className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full bg-gold"
+                              />
+
+                              <div>
+                                <p className="text-[11px] uppercase tracking-[0.16em] text-gold">
+                                  Status
+                                </p>
+
+                                <p className="mt-1.5 text-sm leading-6 text-foreground">
+                                  {status}
+                                </p>
+                              </div>
+                            </div>
+                          </GlassCard>
+                        )}
+                      </div>
                     )}
-
-                    {/* Duration */}
-                    {duration && (
-                      <GlassCard className="w-full p-4 sm:w-[90%] sm:justify-self-start">
-                        <div className="flex items-start gap-3">
-                          <CalendarDays
-                            aria-hidden="true"
-                            className="mt-1 h-4 w-4 shrink-0 text-gold"
-                          />
-
-                          <div>
-                            <p className="text-[11px] uppercase tracking-[0.16em] text-gold">
-                              Duration
-                            </p>
-
-                            <p className="mt-1.5 text-sm leading-6 text-foreground">
-                              {duration}
-                            </p>
-                          </div>
-                        </div>
-                      </GlassCard>
-                    )}
-
-                    {/* Project type */}
-                    {projectType && (
-                      <GlassCard className="w-full p-4 sm:w-[90%] sm:justify-self-end">
-                        <div className="flex items-start gap-3">
-                          <UserRound
-                            aria-hidden="true"
-                            className="mt-1 h-4 w-4 shrink-0 text-gold"
-                          />
-
-                          <div>
-                            <p className="text-[11px] uppercase tracking-[0.16em] text-gold">
-                              Project Type
-                            </p>
-
-                            <p className="mt-1.5 text-sm leading-6 text-foreground">
-                              {projectType}
-                            </p>
-                          </div>
-                        </div>
-                      </GlassCard>
-                    )}
-
-                    {/* Status */}
-                    {status && (
-                      <GlassCard className="w-full p-4 sm:w-[90%] sm:justify-self-start">
-                        <div className="flex items-start gap-3">
-                          <span
-                            aria-hidden="true"
-                            className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full bg-gold"
-                          />
-
-                          <div>
-                            <p className="text-[11px] uppercase tracking-[0.16em] text-gold">
-                              Status
-                            </p>
-
-                            <p className="mt-1.5 text-sm leading-6 text-foreground">
-                              {status}
-                            </p>
-                          </div>
-                        </div>
-                      </GlassCard>
-                    )}
-                  </div>
-                )}
-              </section>
-            )}
+                </section>
+              )}
 
             {/* My role */}
             {(role || roleDescription) && (
@@ -367,111 +367,116 @@ const deployment =
             )}
 
             {/* Technologies */}
-<section className="mt-16 border-t border-brand-border pt-12">
-  <h2 className="font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
-    Technologies
-  </h2>
+            <section className="mt-16 border-t border-brand-border pt-12">
+              <h2 className="font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
+                Technologies
+              </h2>
 
-  <div className="mt-8 flex flex-wrap gap-3">
-    {project.technologies.map((technology) => (
-      <span
-        key={technology}
-        className="inline-flex items-center gap-2 rounded-full border border-brand-border bg-white/[0.02] px-4 py-2 text-sm text-foreground transition-colors hover:border-gold hover:text-gold-light"
-      >
-        <TechnologyIcon name={technology} />
+              <div className="mt-8 flex flex-wrap gap-3">
+                {project.technologies.map((technology) => (
+                  <span
+                    key={technology}
+                    className="inline-flex items-center gap-2 rounded-full border border-brand-border bg-white/[0.02] px-4 py-2 text-sm text-foreground transition-colors hover:border-gold hover:text-gold-light"
+                  >
+                    <TechnologyIcon name={technology} />
 
-        {technology}
-      </span>
-    ))}
-  </div>
-</section>
+                    {technology}
+                  </span>
+                ))}
+              </div>
+            </section>
 
             {/* Deployment */}
-{(deployment.hospital || deployment.demo) && (
-  <section className="border-t border-brand-border pt-12">
-    <h2 className="font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
-      Deployment
-    </h2>
+            {(deployment.hospital || deployment.demo) && (
+              <section className="mt-12 border-t border-brand-border pt-12">
+                <h2 className="font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
+                  Deployment
+                </h2>
 
-    <div className="mt-8 grid gap-4 sm:grid-cols-2">
-      {deployment.hospital && (
-        <GlassCard className="w-full p-4 sm:w-[90%] sm:justify-self-end">
-          <div className="flex items-start gap-3">
-            <Server className="mt-0.5 h-5 w-5 shrink-0 text-gold" />
+                <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                  {deployment.hospital && (
+                    <GlassCard className="w-full p-4 sm:w-[90%] sm:justify-self-end">
+                      <div className="flex items-start gap-3">
+                        <Server className="mt-0.5 h-5 w-5 shrink-0 text-gold" />
 
-            <div>
-              <p className="text-xs font-medium uppercase tracking-[0.2em] text-gold">
-                Hospital Environment
-              </p>
+                        <div>
+                          <p className="text-xs font-medium uppercase tracking-[0.2em] text-gold">
+                            Hospital Environment
+                          </p>
 
-              <p className="mt-2 leading-7 text-foreground">
-                {deployment.hospital}
-              </p>
-            </div>
-          </div>
-        </GlassCard>
-      )}
+                          <p className="mt-2 leading-7 text-foreground">
+                            {deployment.hospital}
+                          </p>
+                        </div>
+                      </div>
+                    </GlassCard>
+                  )}
 
-      {deployment.demo && (
-        <GlassCard className="w-full p-4 sm:w-[90%] sm:justify-self-start">
-          <div className="flex items-start gap-3">
-            <Cloud className="mt-0.5 h-5 w-5 shrink-0 text-gold" />
+                  {deployment.demo && (
+                    <GlassCard className="w-full p-4 sm:w-[90%] sm:justify-self-start">
+                      <div className="flex items-start gap-3">
+                        <Cloud className="mt-0.5 h-5 w-5 shrink-0 text-gold" />
 
-            <div>
-              <p className="text-xs font-medium uppercase tracking-[0.2em] text-gold">
-                Demo Environment
-              </p>
+                        <div>
+                          <p className="text-xs font-medium uppercase tracking-[0.2em] text-gold">
+                            Demo Environment
+                          </p>
 
-              <p className="mt-2 leading-7 text-foreground">
-                {deployment.demo}
-              </p>
-            </div>
-          </div>
-        </GlassCard>
-      )}
-    </div>
-  </section>
-)}
+                          <p className="mt-2 leading-7 text-foreground">
+                            {deployment.demo}
+                          </p>
+                        </div>
+                      </div>
+                    </GlassCard>
+                  )}
+                </div>
+              </section>
+            )}
 
             {/* Team */}
             {contributors.length > 0 && (
-              <section className="mt-16 border-t border-brand-border pt-12">
+              <section className="mt-12 border-t border-brand-border pt-12">
                 <h2 className="font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
                   Project Team
                 </h2>
 
                 <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                  {contributors.map(
-                    (contributor) => (
-                      <GlassCard
-                        key={`${contributor.name}-${contributor.role}`}
-                        className="p-6"
-                      >
-                        <p className="font-[var(--font-heading)] text-2xl font-medium text-gold-gradient">
-                          {contributor.name}
-                        </p>
+                  {contributors.map((contributor, index) => (
+                    <GlassCard
+                      key={`${contributor.name}-${contributor.role}-${index}`}
+                      className={`w-full p-4 sm:w-[90%] ${index % 2 === 0
+                          ? "sm:justify-self-end"
+                          : "sm:justify-self-start"
+                        }`}
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0">
+                          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+                            {contributor.role}
+                          </p>
 
-                        <p className="mt-2 text-sm text-text-secondary">
-                          {contributor.role}
-                        </p>
+                          <p
+                            dir="auto"
+                            className="mt-2 font-[var(--font-body)] text-base font-normal leading-7 text-foreground"
+                          >
+                            {contributor.name || "Contributor details coming soon"}
+                          </p>
+                        </div>
 
                         {contributor.linkedin && (
                           <a
-                            href={
-                              contributor.linkedin
-                            }
+                            href={contributor.linkedin}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="mt-5 inline-flex items-center gap-2 text-sm text-gold transition-colors hover:text-gold-light"
+                            aria-label={`${contributor.name || contributor.role} LinkedIn profile`}
+                            className="shrink-0 text-gold transition-colors hover:text-gold-light"
                           >
-                            <FaLinkedinIn className="h-4 w-4" />
-
-                            LinkedIn
+                            <ArrowUpRight className="h-5 w-5" />
                           </a>
                         )}
-                      </GlassCard>
-                    ),
-                  )}
+                      </div>
+                    </GlassCard>
+                  ))}
                 </div>
               </section>
             )}
@@ -572,7 +577,7 @@ function ProjectListSection({
       </ul>
     </section>
   );
-  
+
 }
 function TechnologyIcon({
   name,
