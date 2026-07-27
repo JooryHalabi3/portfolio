@@ -189,7 +189,7 @@ export default async function ProjectPage({
               </p>
 
               <div className="mt-5 grid gap-8 lg:grid-cols-[minmax(0,1fr)_12rem] lg:items-center">
-                <h1 className="font-[var(--font-heading)] text-5xl font-medium tracking-[-0.03em] text-gold-gradient sm:text-6xl lg:text-7xl">
+                <h1 className="font-[var(--font-heading)] text-5xl font-medium leading-[0.98] tracking-[-0.035em] text-gold-gradient sm:text-6xl lg:text-[4rem]">
                   {project.title}
                 </h1>
 
@@ -214,7 +214,7 @@ export default async function ProjectPage({
               projectType ||
               status) && (
                 <section className="mt-16 border-t border-brand-border pt-12">
-                  <h2 className="font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
+                  <h2 className="font-[var(--font-heading)] text-3xl font-medium tracking-[-0.025em] text-gold-gradient sm:text-4xl">
                     Project Overview
                   </h2>
 
@@ -324,7 +324,7 @@ export default async function ProjectPage({
             {/* My role */}
             {(role || roleDescription) && (
               <section className="mt-16 border-t border-brand-border pt-12">
-                <h2 className="font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
+                <h2 className="font-[var(--font-heading)] text-3xl font-medium tracking-[-0.025em] text-gold-gradient sm:text-4xl">
                   My Role
                 </h2>
 
@@ -368,7 +368,7 @@ export default async function ProjectPage({
 
             {/* Technologies */}
             <section className="mt-16 border-t border-brand-border pt-12">
-              <h2 className="font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
+              <h2 className="font-[var(--font-heading)] text-3xl font-medium tracking-[-0.025em] text-gold-gradient sm:text-4xl">
                 Technologies
               </h2>
 
@@ -388,8 +388,8 @@ export default async function ProjectPage({
 
             {/* Deployment */}
             {(deployment.hospital || deployment.demo) && (
-              <section className="mt-12 border-t border-brand-border pt-12">
-                <h2 className="font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
+              <section className="mt-16 border-t border-brand-border pt-12">
+                <h2 className="font-[var(--font-heading)] text-3xl font-medium tracking-[-0.025em] text-gold-gradient sm:text-4xl">
                   Deployment
                 </h2>
 
@@ -435,8 +435,8 @@ export default async function ProjectPage({
 
             {/* Team */}
             {contributors.length > 0 && (
-              <section className="mt-12 border-t border-brand-border pt-12">
-                <h2 className="font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
+              <section className="mt-16 border-t border-brand-border pt-12">
+                <h2 className="font-[var(--font-heading)] text-3xl font-medium tracking-[-0.025em] text-gold-gradient sm:text-4xl">
                   Project Team
                 </h2>
 
@@ -445,8 +445,8 @@ export default async function ProjectPage({
                     <GlassCard
                       key={`${contributor.name}-${contributor.role}-${index}`}
                       className={`w-full p-4 sm:w-[90%] ${index % 2 === 0
-                          ? "sm:justify-self-end"
-                          : "sm:justify-self-start"
+                        ? "sm:justify-self-end"
+                        : "sm:justify-self-start"
                         }`}
                     >
                       <div className="flex items-start justify-between gap-3">
@@ -556,7 +556,7 @@ function ProjectListSection({
 }: ProjectListSectionProps) {
   return (
     <section className="mt-16 border-t border-brand-border pt-12">
-      <h2 className="font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
+      <h2 className="font-[var(--font-heading)] text-3xl font-medium tracking-[-0.025em] text-gold-gradient sm:text-4xl">
         {title}
       </h2>
 

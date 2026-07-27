@@ -119,7 +119,7 @@ export default function ProjectGallery({
     <section className="mt-16 border-t border-brand-border pt-12">
       {/* Gallery heading */}
       <div className="flex items-end justify-between gap-4">
-        <h2 className="font-[var(--font-heading)] text-4xl font-medium tracking-[-0.02em] text-gold-gradient">
+        <h2 className="font-[var(--font-heading)] text-3xl font-medium tracking-[-0.025em] text-gold-gradient sm:text-4xl">
           System Interfaces
         </h2>
 
