@@ -1,81 +1,116 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
+
+type RevealDirection =
+  | "up"
+  | "down"
+  | "left"
+  | "right"
+  | "none";
 
 type RevealProps = {
   children: ReactNode;
   className?: string;
-
-  // TODO: عدّلي مدة الحركة لاحقًا إذا تبينها أسرع أو أبطأ
   duration?: number;
-
-  // TODO: المسافة التي يبدأ منها العنصر قبل الظهور
   distance?: number;
-
-  // TODO: تأخير ظهور العنصر بالثواني
   delay?: number;
-
-  // TODO: اتجاه دخول العنصر
-  direction?: "up" | "down" | "left" | "right";
-
-  // TODO: اجعليها true إذا تبين الحركة تتكرر كل مرة يظهر العنصر
+  direction?: RevealDirection;
   repeat?: boolean;
+  blur?: number;
+  scale?: number;
+  amount?: number;
 };
 
-const getInitialPosition = (
-  direction: RevealProps["direction"],
+function getInitialPosition(
+  direction: RevealDirection,
   distance: number,
-) => {
+) {
   switch (direction) {
     case "down":
-      return { x: 0, y: -distance };
+      return {
+        x: 0,
+        y: -distance,
+      };
 
     case "left":
-      return { x: distance, y: 0 };
+      return {
+        x: distance,
+        y: 0,
+      };
 
     case "right":
-      return { x: -distance, y: 0 };
+      return {
+        x: -distance,
+        y: 0,
+      };
+
+    case "none":
+      return {
+        x: 0,
+        y: 0,
+      };
 
     case "up":
     default:
-      return { x: 0, y: distance };
+      return {
+        x: 0,
+        y: distance,
+      };
   }
-};
+}
 
 export default function Reveal({
   children,
   className,
-  duration = 0.7,
-  distance = 32,
+  duration = 0.75,
+  distance = 28,
   delay = 0,
   direction = "up",
   repeat = false,
+  blur = 8,
+  scale = 0.985,
+  amount = 0.2,
 }: RevealProps) {
-  const initialPosition = getInitialPosition(direction, distance);
+  const reduceMotion = useReducedMotion();
+
+  const initialPosition = getInitialPosition(
+    direction,
+    distance,
+  );
 
   return (
     <motion.div
       className={className}
-      initial={{
-        opacity: 0,
-        ...initialPosition,
+      style={{
+        willChange: "transform, opacity, filter",
       }}
+      initial={
+        reduceMotion
+          ? false
+          : {
+              opacity: 0,
+              ...initialPosition,
+              scale,
+              filter: `blur(${blur}px)`,
+            }
+      }
       whileInView={{
         opacity: 1,
         x: 0,
         y: 0,
+        scale: 1,
+        filter: "blur(0px)",
       }}
       viewport={{
-        // الحركة تعمل مرة واحدة افتراضيًا
         once: !repeat,
-
-        // يبدأ الظهور عندما يدخل جزء من العنصر داخل الشاشة
-        amount: 0.2,
+        amount,
+        margin: "0px 0px -8% 0px",
       }}
       transition={{
-        duration,
-        delay,
+        duration: reduceMotion ? 0.01 : duration,
+        delay: reduceMotion ? 0 : delay,
         ease: [0.22, 1, 0.36, 1],
       }}
     >
