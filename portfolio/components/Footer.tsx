@@ -8,27 +8,26 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    
     <footer className="border-t border-brand-border bg-background">
-      <div className="mx-auto max-w-7xl px-6 py-12 lg:py-16">
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr_0.8fr]">
+      <div className="mx-auto max-w-7xl px-6 py-10 lg:py-12">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr_0.8fr]">
           {/* Brand */}
           <div>
             <Link
-href="/#home"
+              href="/#home"
               className="font-[var(--font-heading)] text-3xl font-semibold text-gold-light transition-colors duration-300 hover:text-gold"
             >
               {SITE.name}
             </Link>
 
-            <p className="mt-4 max-w-sm leading-7 text-text-secondary">
+            <p className="mt-3 max-w-sm text-sm leading-7 text-text-secondary">
               {SITE.title} focused on building scalable, reliable, and
               thoughtful digital experiences.
             </p>
 
             <a
               href={`mailto:${SITE.email}`}
-              className="group mt-6 inline-flex items-center gap-2 text-sm text-foreground transition-colors duration-300 hover:text-gold-light"
+              className="group mt-5 inline-flex items-center gap-2 text-sm text-foreground transition-colors duration-300 hover:text-gold-light"
             >
               <Mail
                 aria-hidden="true"
@@ -50,11 +49,11 @@ href="/#home"
               Navigation
             </p>
 
-            <nav className="mt-5 flex flex-col gap-3">
+            <nav className="mt-4 flex flex-col gap-2.5">
               {navigation.map((item) => (
                 <Link
                   key={item.href}
-href={`/${item.href}`}
+                  href={`/${item.href}`}
                   className="w-fit text-sm text-text-secondary transition-colors duration-300 hover:text-gold-light"
                 >
                   {item.title}
@@ -69,7 +68,7 @@ href={`/${item.href}`}
               Connect
             </p>
 
-            <div className="mt-5 flex flex-col gap-3">
+            <div className="mt-4 flex flex-col gap-3">
               <a
                 href={SITE.linkedin}
                 target="_blank"
@@ -111,17 +110,18 @@ href={`/${item.href}`}
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-brand-border pt-6 text-sm text-text-secondary sm:flex-row sm:items-center sm:justify-between">
+        {/* Bottom bar */}
+        <div className="mt-9 flex flex-col gap-3 border-t border-brand-border pt-5 text-xs text-text-secondary sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {currentYear} {SITE.name}. All rights reserved.
           </p>
 
-          <a
-href="#top"
+          <Link
+            href="/#home"
             className="w-fit uppercase tracking-[0.18em] transition-colors duration-300 hover:text-gold-light"
           >
             Back to top
-          </a>
+          </Link>
         </div>
       </div>
     </footer>

@@ -15,7 +15,10 @@ export default function Contact() {
     <Section id="contact">
       <Container>
         <Reveal>
-          <GlassCard className="relative overflow-hidden px-6 py-12 sm:px-10 sm:py-16 lg:px-16 lg:py-20">
+          <GlassCard
+            className="relative overflow-hidden"
+            contentClassName="p-7 sm:p-10 lg:p-12"
+          >
             {/* Decorative background */}
             <div
               aria-hidden="true"
@@ -27,7 +30,7 @@ export default function Contact() {
               className="pointer-events-none absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-surface-light/40 blur-3xl"
             />
 
-            <div className="relative z-10 grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-end lg:gap-16">
+            <div className="relative z-10 grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end lg:gap-14">
               {/* Left */}
               <div>
                 <SectionTitle
@@ -39,6 +42,7 @@ export default function Contact() {
                 <div className="mt-7 inline-flex items-center gap-3 rounded-full border border-brand-border bg-white/[0.03] px-4 py-2">
                   <span className="relative flex h-2.5 w-2.5">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold opacity-40" />
+
                     <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gold" />
                   </span>
 
@@ -49,8 +53,8 @@ export default function Contact() {
               </div>
 
               {/* Right */}
-              <div className="space-y-6">
-                <div className="border-t border-brand-border pt-6">
+              <div className="space-y-5">
+                <div className="border-t border-brand-border pt-5">
                   <p className="text-xs font-medium uppercase tracking-[0.25em] text-gold">
                     Get in touch
                   </p>
@@ -62,7 +66,9 @@ export default function Contact() {
                     <span className="flex min-w-0 items-center gap-3">
                       <Mail className="h-5 w-5 shrink-0 text-gold" />
 
-                      <span className="truncate">{CONTACT.email}</span>
+                      <span className="truncate">
+                        {CONTACT.email}
+                      </span>
                     </span>
 
                     <ArrowUpRight className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
@@ -96,11 +102,6 @@ export default function Contact() {
                     GitHub
                   </a>
                 </div>
-
-                {/* TODO:
-                  ضع روابط GitHub و LinkedIn الحقيقية
-                  داخل constants/contact.ts قبل نشر الموقع.
-                */}
               </div>
             </div>
           </GlassCard>

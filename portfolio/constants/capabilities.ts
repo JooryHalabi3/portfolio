@@ -1,8 +1,8 @@
 export const CAPABILITIES = [
   {
-    title: "Backend Development",
+    title: "Backend & APIs",
     description:
-      "Designing scalable backend services, REST APIs, authentication systems, and enterprise business logic.",
+      "Building secure and scalable backend services, REST APIs, authentication systems, and role-based application logic.",
     skills: [
       "Node.js",
       "Express.js",
@@ -14,9 +14,9 @@ export const CAPABILITIES = [
   },
 
   {
-    title: "Database Engineering",
+    title: "Databases & Cloud",
     description:
-      "Building reliable database structures with optimized queries and cloud-based solutions.",
+      "Designing relational databases, optimizing data operations, and integrating applications with cloud database platforms.",
     skills: [
       "MySQL",
       "PostgreSQL",
@@ -26,26 +26,29 @@ export const CAPABILITIES = [
   },
 
   {
-    title: "Full-Stack Development",
+    title: "Frontend & Mobile",
     description:
-      "Developing responsive applications that connect clean interfaces with scalable backend services.",
+      "Developing responsive interfaces and mobile experiences connected to reliable backend services and live data.",
     skills: [
       "React Native",
       "JavaScript",
       "HTML",
       "CSS",
+      "Chart.js",
     ],
   },
 
   {
-    title: "AI & System Integration",
+    title: "AI & Development Tools",
     description:
-      "Integrating AI services, external APIs, and automation into modern software products.",
+      "Integrating AI capabilities and using modern development, version control, and interface design tools.",
     skills: [
-      "OpenAI APIs",
       "Python",
       "AI Integration",
-      "System Architecture",
+      "Git",
+      "GitHub",
+      "Figma",
+      "VS Code",
     ],
   },
-];
+] as const;
