@@ -1,5 +1,4 @@
-import { ReactNode } from "react";
-import Container from "./Container";
+import type { ReactNode } from "react";
 
 interface SectionProps {
   id?: string;
@@ -15,9 +14,9 @@ export default function Section({
   return (
     <section
       id={id}
-      className={`relative py-28 ${className}`}
+      className={`relative py-20 md:py-24 ${className}`}
     >
-      <Container>{children}</Container>
+      {children}
     </section>
   );
 }

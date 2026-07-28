@@ -15,7 +15,7 @@ export default function Footer() {
           <div>
             <Link
               href="/#home"
-              className="font-[var(--font-heading)] text-3xl font-semibold text-gold-light transition-colors duration-300 hover:text-gold"
+              className="text-2xl font-semibold tracking-wide text-gold-light transition-colors duration-300 hover:text-gold"
             >
               {SITE.name}
             </Link>

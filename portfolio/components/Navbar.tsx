@@ -70,8 +70,8 @@ export default function Navbar() {
             className="h-11 w-11 rounded-full border border-gold/40 object-cover transition-transform duration-300 group-hover:scale-105"
           />
 
-          <span className="hidden font-[var(--font-heading)] text-2xl font-semibold text-gold-light sm:block">
-            {SITE.name}
+<span className="hidden text-2xl font-semibold text-gold-light sm:block">
+              {SITE.name}
           </span>
         </Link>
 
