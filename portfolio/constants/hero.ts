@@ -1,23 +1,20 @@
 export const HERO = {
-  eyebrow: "Software Engineer",
+  greeting: "Hi, I’m",
 
-  heading: {
-    firstLine: "Building Thoughtful",
-    highlightedLine: "Digital Experiences.",
-  },
+  name: "Joory Halabi",
+
+  role: "Software Engineer | Full Stack Developer",
 
   description:
-    "I design and build scalable digital products, backend systems, and AI-powered solutions with a focus on clarity, performance, and meaningful impact.",
+    "I build scalable web applications, reliable backend systems, and thoughtful digital experiences. Passionate about clean code, problem solving, and creating software that makes a meaningful impact.",
 
   primaryAction: {
-    label: "Explore My Work",
+    label: "View My Work",
     href: "#projects",
   },
 
   secondaryAction: {
-    label: "Let’s Connect",
+    label: "Contact Me",
     href: "#contact",
   },
-
-  availability: "Open to software engineering opportunities",
 };
