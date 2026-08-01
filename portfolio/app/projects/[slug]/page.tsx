@@ -26,7 +26,6 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa6";
 
-import Footer from "@/components/Footer";
 import ProjectGallery from "@/components/ProjectGallery";
 import { Container, GlassCard } from "@/components/ui";
 import { PROJECTS, SITE } from "@/constants";
@@ -484,7 +483,6 @@ export default async function ProjectPage({
         </Container>
       </main>
 
-      <Footer />
     </div>
   );
 }
