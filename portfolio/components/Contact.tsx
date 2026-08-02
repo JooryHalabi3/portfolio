@@ -132,15 +132,6 @@ export default function Contact() {
             </div>
           </GlassCard>
         </Reveal>
-
-        {/* Copyright — outside the card */}
-        <Reveal delay={0.1}>
-          <div className="mt-8 border-t border-brand-border pt-6 text-center">
-            <p className="text-sm text-text-secondary">
-              © 2026 Joory Halabi. All rights reserved.
-            </p>
-          </div>
-        </Reveal>
       </Container>
     </Section>
   );

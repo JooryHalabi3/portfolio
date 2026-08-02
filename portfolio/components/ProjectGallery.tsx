@@ -22,10 +22,12 @@ type GalleryImage = {
 
 type ProjectGalleryProps = {
   images: GalleryImage[];
+  compact?: boolean;
 };
 
 export default function ProjectGallery({
   images,
+  compact = false,
 }: ProjectGalleryProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -116,20 +118,25 @@ export default function ProjectGallery({
   };
 
   return (
-    <section className="mt-16 border-t border-brand-border pt-12">
-      {/* Gallery heading */}
-      <div className="flex items-end justify-between gap-4">
-        <h2 className="font-[var(--font-heading)] text-3xl font-medium tracking-[-0.025em] text-gold-gradient sm:text-4xl">
-          System Interfaces
-        </h2>
-
-        <p className="text-sm text-text-secondary">
+<section
+  className={
+    compact
+      ? "min-w-0"
+      : "mt-12 border-t border-brand-border pt-10"
+  }
+>      {/* Gallery heading */}
+<div className="flex justify-end">
+          <p className="text-sm text-text-secondary">
           {activeIndex + 1} / {images.length}
         </p>
       </div>
 
       {/* Compact interface preview */}
-      <div className="mx-auto mt-10 max-w-4xl overflow-hidden rounded-2xl border border-brand-border bg-surface shadow-xl">
+      <div className={`mx-auto overflow-hidden rounded-2xl border border-brand-border bg-surface/30 ${
+  compact
+    ? "mt-6 w-full"
+    : "mt-8 max-w-4xl"
+}`}>
         {/* Browser-style top bar */}
         <div className="flex h-12 items-center justify-between border-b border-brand-border bg-background/40 px-5">
           <div
@@ -153,20 +160,9 @@ export default function ProjectGallery({
 
         {/* Clickable image preview */}
         <div
-          role="button"
-          tabIndex={0}
-          aria-label={`Open ${activeImage.caption}`}
-          onClick={() => setIsExpanded(true)}
-          onKeyDown={(event) => {
-            if (
-              event.key === "Enter" ||
-              event.key === " "
-            ) {
-              setIsExpanded(true);
-            }
-          }}
-          className="group relative aspect-video w-full cursor-zoom-in overflow-hidden bg-gradient-to-br from-surface-light via-surface to-background"
-        >
+  onClick={() => setIsExpanded(true)}
+  className="group relative aspect-video w-full cursor-zoom-in overflow-hidden bg-gradient-to-br from-surface-light via-surface to-background"
+>
           {!activeImageFailed ? (
             <Image
               key={`${activeImage.src}-${activeIndex}`}
@@ -187,13 +183,20 @@ export default function ProjectGallery({
               </p>
             </div>
           )}
+          {/* Expand button */}
+<button
+  type="button"
+  onClick={(event) => {
+    event.stopPropagation();
+    setIsExpanded(true);
+  }}
+  aria-label={`View details for ${activeImage.caption}`}
+  className="absolute bottom-4 right-4 z-20 inline-flex items-center gap-2 rounded-full border border-gold/40 bg-background/90 px-4 py-2 text-xs text-gold shadow-lg backdrop-blur-md transition-all duration-300 hover:border-gold hover:bg-gold hover:text-background sm:opacity-0 sm:group-hover:opacity-100"
+>
+  <Maximize2 className="h-3.5 w-3.5" />
 
-          {/* Expand hint */}
-          <div className="pointer-events-none absolute bottom-4 right-4 inline-flex items-center gap-2 rounded-full border border-gold/30 bg-background/80 px-4 py-2 text-xs text-gold opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100">
-            <Maximize2 className="h-3.5 w-3.5" />
-
-            View details
-          </div>
+  View details
+</button>
 
           {/* Previous interface */}
           {images.length > 1 && (

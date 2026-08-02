@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import {   Cinzel,Cormorant_Garamond, Geist } from "next/font/google";
-
+import Copyright from "@/components/Copyright";
 import "./globals.css";
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -100,11 +100,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body
-className={`${geist.variable} ${cormorantGaramond.variable} ${cinzel.variable} min-h-screen bg-background text-foreground antialiased`}      >
-        
-        {children}
-      </body>
+<body
+  className={`${geist.variable} ${cormorantGaramond.variable} min-h-screen bg-background font-[var(--font-body)] text-foreground antialiased`}
+>
+  {children}
+  <Copyright />
+</body>
     </html>
   );
 }
