@@ -43,8 +43,10 @@ export default async function HomePage({
   dir="ltr"
   className="relative overflow-hidden"
 >
-  <Hero />
-  <SelectedWork />
+<Hero
+  locale={locale}
+  dictionary={dictionary}
+/>  <SelectedWork />
   <About />
   <Capabilities />
   <Journey />

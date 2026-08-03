@@ -43,4 +43,14 @@ export const en = {
     getInTouch: "Get in touch",
     rights: "All rights reserved.",
   },
+  hero: {
+  greeting: "Hi, I’m",
+  name: "Joory Halabi",
+  role: "Software Engineer | Full Stack Developer",
+  description:
+    "I build scalable web applications, reliable backend systems, and thoughtful digital experiences. Passionate about clean code, problem solving, and creating software that makes a meaningful impact.",
+  primaryAction: "View My Work",
+  secondaryAction: "Contact Me",
+  scrollLabel: "Scroll to projects",
+}
 };

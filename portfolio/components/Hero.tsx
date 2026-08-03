@@ -10,7 +10,8 @@ import {
   Server,
   UserRound,
 } from "lucide-react";
-
+import type { Dictionary } from "@/dictionaries";
+import type { Locale } from "@/lib/i18n";
 import HeroIntro from "@/components/HeroIntro";
 import { HERO } from "@/constants";
 import {
@@ -18,8 +19,17 @@ import {
   Reveal,
   Section,
 } from "@/components/ui";
+type HeroProps = {
+  locale: Locale;
+  dictionary: Dictionary;
+};
 
-export default function Hero() {
+export default function Hero({
+  locale,
+  dictionary,
+}: HeroProps) {
+  const isArabic = locale === "ar";
+  const hero = dictionary.hero;
   return (
     <>
       {/* نترك الانترو القديم كما هو */}
@@ -35,68 +45,81 @@ export default function Hero() {
         <Container>
           <div className="relative z-10 grid items-center gap-14 lg:grid-cols-[1fr_0.9fr] lg:gap-20">
             {/* Left content */}
-            <div className="max-w-2xl">
-              <Reveal>
+<div
+  dir={isArabic ? "rtl" : "ltr"}
+  className={`max-w-2xl ${
+    isArabic
+      ? "text-right lg:order-2"
+      : "text-left lg:order-1"
+  }`}
+>              <Reveal>
                 <p className="text-lg font-medium text-gold sm:text-xl">
-                  {HERO.greeting}
-                </p>
+{hero.greeting}                </p>
               </Reveal>
 
               <Reveal delay={0.08}>
                 <h1 className="mt-3 font-[var(--font-heading)] text-6xl font-semibold leading-[0.92] tracking-[-0.035em] text-foreground sm:text-7xl lg:text-[5.6rem]">
-                  {HERO.name}
+                  {hero.name}
                 </h1>
               </Reveal>
 
               <Reveal delay={0.16}>
                 <p className="mt-5 text-lg font-medium text-gold-light sm:text-xl lg:text-2xl">
-                  {HERO.role}
+                  {hero.role}
                 </p>
               </Reveal>
 
               <Reveal delay={0.24}>
                 <p className="mt-6 max-w-xl text-base leading-8 text-text-secondary sm:text-lg">
-                  {HERO.description}
+                  {hero.description}
                 </p>
               </Reveal>
 
               <Reveal delay={0.32}>
                 <div className="mt-9 flex flex-wrap gap-4">
-                  <Link
-                    href={HERO.primaryAction.href}
-                    className="group inline-flex items-center gap-3 rounded-xl border border-gold bg-gold px-6 py-3.5 text-sm font-medium text-background transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-light"
-                  >
-                    {HERO.primaryAction.label}
+                 <Link
+  href="#projects"
+  className="group inline-flex items-center gap-3 rounded-xl border border-gold bg-gold px-6 py-3.5 text-sm font-medium text-background transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-light"
+>
+  {hero.primaryAction}
 
-                    <ArrowRight
-                      aria-hidden="true"
-                      className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-                    />
-                  </Link>
+  <ArrowRight
+    aria-hidden="true"
+    className={`h-4 w-4 transition-transform duration-300 ${
+      isArabic
+        ? "rotate-180 group-hover:-translate-x-1"
+        : "group-hover:translate-x-1"
+    }`}
+  />
+</Link>
 
-                  <Link
-                    href={HERO.secondaryAction.href}
-                    className="group inline-flex items-center gap-3 rounded-xl border border-brand-border bg-surface/20 px-6 py-3.5 text-sm font-medium text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-gold/70 hover:text-gold-light"
-                  >
-                    {HERO.secondaryAction.label}
+                <Link
+  href="#contact"
+  className="group inline-flex items-center gap-3 rounded-xl border border-brand-border bg-surface/20 px-6 py-3.5 text-sm font-medium text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-gold/70 hover:text-gold-light"
+>
+  {hero.secondaryAction}
 
-                    <UserRound
-                      aria-hidden="true"
-                      className="h-4 w-4 text-gold transition-transform duration-300 group-hover:scale-110"
-                    />
-                  </Link>
+  <UserRound
+    aria-hidden="true"
+    className="h-4 w-4 text-gold transition-transform duration-300 group-hover:scale-110"
+  />
+</Link>
                 </div>
               </Reveal>
             </div>
 
             {/* Right code window */}
-            <Reveal
-              direction="left"
-              delay={0.2}
-              distance={36}
-            >
-              <CodeWindow />
-            </Reveal>
+      {/* Code window */}
+<Reveal
+  direction={isArabic ? "right" : "left"}
+  delay={0.2}
+  distance={36}
+  className={
+    isArabic ? "lg:order-1" : "lg:order-2"
+  }
+>
+  <CodeWindow />
+</Reveal>
           </div>
         </Container>
 
