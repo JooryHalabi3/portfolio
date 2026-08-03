@@ -340,27 +340,6 @@
   }
 }
 
-.project-header {
-  position: fixed;
-}
-
-.project-header::after {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 1px;
-  content: "";
-  background-color: var(--brand-border);
-  opacity: 0;
-
-  animation-name: project-header-border;
-  animation-duration: 1ms;
-  animation-timing-function: linear;
-  animation-fill-mode: both;
-  animation-timeline: scroll(root block);
-  animation-range: 30px 70px;
-}
 /* =========================================================
    LOCALE AND RESPONSIVE BEHAVIOR
    ========================================================= */

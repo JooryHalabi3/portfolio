@@ -144,10 +144,6 @@ export default function Navbar({
                     ? "tracking-normal"
                     : "uppercase tracking-[0.14em]"
                 } ${
-                  item.href === "#contact"
-                    ? "-ms-8"
-                    : ""
-                } ${
                   isActive
                     ? "text-gold-light"
                     : "text-text-secondary hover:text-gold-light"
@@ -225,7 +221,7 @@ export default function Navbar({
             aria-label={
               isArabic
                 ? "التنقل عبر الجوال"
-                : "Mobile الج navigation"
+                : "Mobile navigation"
             }
             className="flex flex-col"
           >

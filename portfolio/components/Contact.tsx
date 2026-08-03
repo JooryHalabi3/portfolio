@@ -36,8 +36,10 @@ export default function Contact() {
               className="pointer-events-none absolute right-12 top-10 h-16 w-px bg-gradient-to-b from-gold/30 to-transparent"
             />
 
-            <div className="relative z-10 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16">
-              {/* Left content */}
+<div
+  dir="ltr"
+  className="relative z-10 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16"
+>              {/* Left content */}
               <div>
                 <SectionTitle
                   subtitle={CONTACT.label}
