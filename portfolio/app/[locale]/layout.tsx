@@ -39,12 +39,18 @@ export default async function LocaleLayout({
   }
 
   const config = localeConfig[locale];
+  const isArabic = locale === "ar";
 
   return (
     <div
       lang={config.languageTag}
       dir={config.direction}
-      className={`${notoSansArabic.variable} min-h-screen`}
+      data-locale={locale}
+      className={`${notoSansArabic.variable} min-h-screen ${
+        isArabic
+          ? "font-[var(--font-arabic)]"
+          : "font-[var(--font-body)]"
+      }`}
     >
       {children}
     </div>

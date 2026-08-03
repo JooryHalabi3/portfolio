@@ -86,13 +86,14 @@ export default function Navbar({
   };
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled || isOpen
-          ? "border-b border-brand-border/70 bg-background/90 shadow-[0_12px_35px_rgba(0,0,0,0.16)] backdrop-blur-xl"
-          : "bg-transparent"
-      }`}
-    >
+<header
+  dir="ltr"
+  className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+    scrolled || isOpen
+      ? "border-b border-brand-border/70 bg-background/90 shadow-[0_12px_35px_rgba(0,0,0,0.16)] backdrop-blur-xl"
+      : "bg-transparent"
+  }`}
+>
       <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between gap-6 px-5 sm:px-6 lg:px-8">
         {/* Logo */}
         <Link
@@ -246,9 +247,9 @@ export default function Navbar({
                       : "text-text-secondary hover:text-foreground"
                   }`}
                 >
-                  <span>
-                    {getNavigationLabel(item.href)}
-                  </span>
+                 <span dir={isArabic ? "rtl" : "ltr"}>
+  {getNavigationLabel(item.href)}
+</span>
 
                   {isActive && (
                     <span className="h-1.5 w-1.5 rounded-full bg-gold" />
@@ -270,7 +271,9 @@ export default function Navbar({
               onClick={closeMobileMenu}
               className="mt-3 inline-flex h-11 w-full items-center justify-center gap-2 rounded-full border border-gold/60 text-sm font-medium text-gold-light transition-colors hover:bg-gold hover:text-background"
             >
-              {dictionary.actions.downloadCV}
+           <span dir={isArabic ? "rtl" : "ltr"}>
+  {dictionary.actions.downloadCV}
+</span>
 
               <Download className="h-4 w-4" />
             </Link>

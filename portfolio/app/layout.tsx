@@ -1,29 +1,44 @@
 import type { Metadata } from "next";
-import {   Cinzel,Cormorant_Garamond, Geist } from "next/font/google";
+import {
+  Cinzel,
+  Cormorant_Garamond,
+  Geist,
+} from "next/font/google";
+
 import Copyright from "@/components/Copyright";
 import "./globals.css";
+
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  "https://jooryhalabi3.github.io/portfolio";
+
 const cinzel = Cinzel({
   subsets: ["latin"],
   variable: "--font-brand",
   weight: ["500", "600", "700"],
   display: "swap",
 });
+
 const geist = Geist({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
 });
 
-const cormorantGaramond = Cormorant_Garamond({
-  subsets: ["latin"],
-  variable: "--font-heading",
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-});
+const cormorantGaramond =
+  Cormorant_Garamond({
+    subsets: ["latin"],
+    variable: "--font-heading",
+    display: "swap",
+    weight: ["400", "500", "600", "700"],
+  });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+
   title: {
-    default: "Joory Halabi | Software Engineer",
+    default:
+      "Joory Halabi | Software Engineer",
     template: "%s | Joory Halabi",
   },
 
@@ -49,20 +64,30 @@ export const metadata: Metadata = {
     "Software Engineering Portfolio",
   ],
 
-  authors: [{ name: "Joory Halabi" }],
+  authors: [
+    {
+      name: "Joory Halabi",
+    },
+  ],
+
   creator: "Joory Halabi",
   publisher: "Joory Halabi",
 
   openGraph: {
-    title: "Joory Halabi | Software Engineer",
+    title:
+      "Joory Halabi | Software Engineer",
+
     description:
       "Software Engineer specializing in scalable backend systems, full-stack applications, healthcare platforms, and AI-powered solutions.",
+
     type: "website",
     locale: "en_US",
     siteName: "Joory Halabi Portfolio",
+    url: siteUrl,
+
     images: [
       {
-        url: "/og-image.jpg",
+        url: `${siteUrl}/og-image.jpg`,
         width: 2048,
         height: 512,
         alt: "Joory Halabi | Software Engineer and Full Stack Developer",
@@ -72,15 +97,22 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Joory Halabi | Software Engineer",
+
+    title:
+      "Joory Halabi | Software Engineer",
+
     description:
       "Software Engineer specializing in scalable backend systems, full-stack applications, and AI-powered solutions.",
-    images: ["/og-image.jpg"],
+
+    images: [
+      `${siteUrl}/og-image.jpg`,
+    ],
   },
 
   robots: {
     index: true,
     follow: true,
+
     googleBot: {
       index: true,
       follow: true,
@@ -99,13 +131,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-<body
-  className={`${geist.variable} ${cormorantGaramond.variable} min-h-screen bg-background font-[var(--font-body)] text-foreground antialiased`}
->
-  {children}
-  <Copyright />
-</body>
+    <html
+      lang="en"
+      className="scroll-smooth"
+    >
+      <body
+        className={`${geist.variable} ${cormorantGaramond.variable} ${cinzel.variable} min-h-screen bg-background font-[var(--font-body)] text-foreground antialiased`}
+      >
+        {children}
+
+        <Copyright />
+      </body>
     </html>
   );
 }

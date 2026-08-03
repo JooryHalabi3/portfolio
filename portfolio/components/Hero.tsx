@@ -10,51 +10,59 @@ import {
   Server,
   UserRound,
 } from "lucide-react";
+
+import HeroIntro from "@/components/HeroIntro";
 import type { Dictionary } from "@/dictionaries";
 import type { Locale } from "@/lib/i18n";
-import HeroIntro from "@/components/HeroIntro";
-import { HERO } from "@/constants";
 import {
   Container,
   Reveal,
   Section,
 } from "@/components/ui";
+
 type HeroProps = {
   locale: Locale;
   dictionary: Dictionary;
 };
-
 export default function Hero({
   locale,
   dictionary,
 }: HeroProps) {
   const isArabic = locale === "ar";
   const hero = dictionary.hero;
+
   return (
     <>
-      {/* نترك الانترو القديم كما هو */}
       <HeroIntro />
 
       <Section
         id="home"
         className="relative flex min-h-screen items-center overflow-hidden pt-28"
       >
-        {/* Background decorations */}
         <HeroBackground />
 
         <Container>
-          <div className="relative z-10 grid items-center gap-14 lg:grid-cols-[1fr_0.9fr] lg:gap-20">
-            {/* Left content */}
-<div
-  dir={isArabic ? "rtl" : "ltr"}
-  className={`max-w-2xl ${
-    isArabic
-      ? "text-right lg:order-2"
-      : "text-left lg:order-1"
-  }`}
->              <Reveal>
+          {/*
+            نبقي الـ grid باتجاه LTR حتى نتحكم
+            في موضع كل عمود باستخدام order.
+          */}
+          <div
+            dir="ltr"
+            className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16"
+          >
+            {/* Hero text */}
+            <div
+              dir={isArabic ? "rtl" : "ltr"}
+              className={`max-w-2xl ${
+                isArabic
+                  ? "text-right lg:order-2"
+                  : "text-left lg:order-1"
+              }`}
+            >
+              <Reveal>
                 <p className="text-lg font-medium text-gold sm:text-xl">
-{hero.greeting}                </p>
+                  {hero.greeting}
+                </p>
               </Reveal>
 
               <Reveal delay={0.08}>
@@ -83,50 +91,62 @@ export default function Hero({
 >
   {hero.primaryAction}
 
-  <ArrowRight
-    aria-hidden="true"
-    className={`h-4 w-4 transition-transform duration-300 ${
-      isArabic
-        ? "rotate-180 group-hover:-translate-x-1"
-        : "group-hover:translate-x-1"
-    }`}
-  />
-</Link>
+                    <ArrowRight
+                      aria-hidden="true"
+                      className={`h-4 w-4 transition-transform duration-300 ${
+                        isArabic
+                          ? "rotate-180 group-hover:-translate-x-1"
+                          : "group-hover:translate-x-1"
+                      }`}
+                    />
+                  </Link>
 
-                <Link
+                 <Link
   href="#contact"
   className="group inline-flex items-center gap-3 rounded-xl border border-brand-border bg-surface/20 px-6 py-3.5 text-sm font-medium text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-gold/70 hover:text-gold-light"
 >
   {hero.secondaryAction}
 
-  <UserRound
-    aria-hidden="true"
-    className="h-4 w-4 text-gold transition-transform duration-300 group-hover:scale-110"
-  />
-</Link>
+                    <UserRound
+                      aria-hidden="true"
+                      className="h-4 w-4 text-gold transition-transform duration-300 group-hover:scale-110"
+                    />
+                  </Link>
                 </div>
               </Reveal>
             </div>
 
-            {/* Right code window */}
-      {/* Code window */}
-<Reveal
-  direction={isArabic ? "right" : "left"}
-  delay={0.2}
-  distance={36}
-  className={
-    isArabic ? "lg:order-1" : "lg:order-2"
-  }
->
-  <CodeWindow />
-</Reveal>
+            {/* Code window */}
+            <Reveal
+              direction={
+                isArabic ? "right" : "left"
+              }
+              delay={0.2}
+              distance={36}
+              className={`flex h-full items-center justify-center ${
+                isArabic
+                  ? "lg:order-1"
+                  : "lg:order-2"
+              }`}
+            >
+              <div
+                dir="ltr"
+                className="w-full text-left"
+              >
+                <CodeWindow />
+              </div>
+            </Reveal>
           </div>
         </Container>
 
         {/* Scroll button */}
         <Link
           href="#projects"
-          aria-label="Scroll to projects"
+          aria-label={
+            isArabic
+              ? "الانتقال إلى المشاريع"
+              : "Scroll to projects"
+          }
           className="absolute bottom-7 left-1/2 z-20 hidden h-11 w-11 -translate-x-1/2 items-center justify-center rounded-full border border-brand-border bg-background/50 text-gold backdrop-blur-sm transition-all duration-300 hover:border-gold hover:bg-surface/50 md:flex"
         >
           <ArrowDown className="h-4 w-4 animate-bounce" />
@@ -138,14 +158,17 @@ export default function Hero({
 
 function CodeWindow() {
   return (
-    <div className="relative mx-auto w-full max-w-xl">
+    <div
+      dir="ltr"
+      className="relative mx-auto w-full max-w-xl text-left"
+    >
       {/* Corner glow */}
       <div
         aria-hidden="true"
         className="absolute -right-5 -top-5 h-28 w-28 rounded-full bg-gold/[0.08] blur-3xl"
       />
 
-      {/* Decorative circuit connected to the window */}
+      {/* Decorative circuit */}
       <div
         aria-hidden="true"
         className="absolute -right-16 top-10 hidden lg:block"
@@ -154,25 +177,40 @@ function CodeWindow() {
         <div className="ml-20 h-12 w-px bg-gold/25" />
       </div>
 
-      <div className="relative overflow-hidden rounded-3xl border border-brand-border bg-surface/25 backdrop-blur-md">
+      <div
+        dir="ltr"
+        className="relative overflow-hidden rounded-3xl border border-brand-border bg-surface/25 text-left backdrop-blur-md"
+      >
         {/* Window header */}
         <div className="flex items-center justify-between border-b border-brand-border px-5 py-4">
-          <div className="flex items-center gap-2">
+          <div
+            dir="ltr"
+            className="flex items-center gap-2"
+          >
             <span className="h-2.5 w-2.5 rounded-full bg-[#D98B68]" />
             <span className="h-2.5 w-2.5 rounded-full bg-gold/75" />
             <span className="h-2.5 w-2.5 rounded-full bg-[#829C76]" />
           </div>
 
-          <div className="flex items-center gap-2 text-xs text-text-secondary">
+          <div
+            dir="ltr"
+            className="flex items-center gap-2 text-xs text-text-secondary"
+          >
             <Code2 className="h-4 w-4 text-gold" />
             developer.ts
           </div>
         </div>
 
         {/* Code */}
-<div className="overflow-x-auto px-6 py-5 sm:px-8 sm:py-6">
-<pre className="font-mono text-[0.78rem] leading-6 text-text-secondary sm:text-sm sm:leading-7">
-              <code>
+        <div
+          dir="ltr"
+          className="overflow-x-auto px-6 py-5 text-left sm:px-8 sm:py-6"
+        >
+          <pre
+            dir="ltr"
+            className="text-left font-mono text-[0.78rem] leading-6 text-text-secondary sm:text-sm sm:leading-7"
+          >
+            <code>
               <span className="text-[#D98B68]">
                 const
               </span>{" "}
@@ -190,7 +228,9 @@ function CodeWindow() {
               <span className="text-gold-light">
                 &quot;Joory Halabi&quot;
               </span>
-              <span className="text-foreground">,</span>
+              <span className="text-foreground">
+                ,
+              </span>
 
               {"\n  "}
               <span className="text-text-secondary">
@@ -199,31 +239,41 @@ function CodeWindow() {
               <span className="text-gold-light">
                 &quot;Software Engineer&quot;
               </span>
-              <span className="text-foreground">,</span>
+              <span className="text-foreground">
+                ,
+              </span>
 
               {"\n  "}
               <span className="text-text-secondary">
                 skills:
               </span>{" "}
-              <span className="text-foreground">[</span>
+              <span className="text-foreground">
+                [
+              </span>
 
               {"\n    "}
               <span className="text-gold-light">
                 &quot;Node.js&quot;
               </span>
-              <span className="text-foreground">,</span>
+              <span className="text-foreground">
+                ,
+              </span>
 
               {"\n    "}
               <span className="text-gold-light">
                 &quot;React Native&quot;
               </span>
-              <span className="text-foreground">,</span>
+              <span className="text-foreground">
+                ,
+              </span>
 
               {"\n    "}
               <span className="text-gold-light">
                 &quot;Python&quot;
               </span>
-              <span className="text-foreground">,</span>
+              <span className="text-foreground">
+                ,
+              </span>
 
               {"\n    "}
               <span className="text-gold-light">
@@ -231,7 +281,9 @@ function CodeWindow() {
               </span>
 
               {"\n  "}
-              <span className="text-foreground">],</span>
+              <span className="text-foreground">
+                ],
+              </span>
 
               {"\n  "}
               <span className="text-text-secondary">
@@ -240,7 +292,9 @@ function CodeWindow() {
               <span className="text-gold-light">
                 &quot;Building reliable solutions&quot;
               </span>
-              <span className="text-foreground">,</span>
+              <span className="text-foreground">
+                ,
+              </span>
 
               {"\n  "}
               <span className="text-text-secondary">
@@ -288,41 +342,18 @@ function HeroBackground() {
       >
         <CircuitDefinitions />
 
-        <CircuitLine
-          path="M0 190 H80 L115 225 H240 L275 190 H470"
-          delay={0}
-        />
+        <CircuitLine path="M0 190 H80 L115 225 H240 L275 190 H470" />
+        <CircuitLine path="M0 270 H120 L155 305 H295 L330 270 H520" />
+        <CircuitLine path="M0 390 H70 L110 430 H250 L290 390 H480" />
+        <CircuitLine path="M0 530 H115 L150 565 H310 L345 530 H535" />
+        <CircuitLine path="M0 650 H75 L110 685 H255 L290 650 H490" />
+        <CircuitLine path="M0 745 H120 L155 780 H300 L335 745 H520" />
 
-        <CircuitLine
-          path="M0 270 H120 L155 305 H295 L330 270 H520"
-          delay={0.1}
-        />
-
-        <CircuitLine
-          path="M0 390 H70 L110 430 H250 L290 390 H480"
-          delay={0.2}
-        />
-
-        <CircuitLine
-          path="M0 530 H115 L150 565 H310 L345 530 H535"
-          delay={0.3}
-        />
-
-        <CircuitLine
-          path="M0 650 H75 L110 685 H255 L290 650 H490"
-          delay={0.4}
-        />
-
-        <CircuitLine
-          path="M0 745 H120 L155 780 H300 L335 745 H520"
-          delay={0.5}
-        />
-
-        <CircuitNode x={80} y={190} delay={0.2} />
-        <CircuitNode x={155} y={305} delay={0.4} />
-        <CircuitNode x={110} y={430} delay={0.6} />
-        <CircuitNode x={345} y={530} delay={0.8} />
-        <CircuitNode x={110} y={685} delay={1} />
+        <CircuitNode x={80} y={190} />
+        <CircuitNode x={155} y={305} />
+        <CircuitNode x={110} y={430} />
+        <CircuitNode x={345} y={530} />
+        <CircuitNode x={110} y={685} />
       </svg>
 
       {/* Right circuits */}
@@ -333,41 +364,18 @@ function HeroBackground() {
       >
         <CircuitDefinitions />
 
-        <CircuitLine
-          path="M0 160 H95 L130 195 H270 L305 160 H515"
-          delay={0.1}
-        />
+        <CircuitLine path="M0 160 H95 L130 195 H270 L305 160 H515" />
+        <CircuitLine path="M0 285 H115 L150 320 H290 L325 285 H530" />
+        <CircuitLine path="M0 410 H75 L110 445 H250 L285 410 H490" />
+        <CircuitLine path="M0 550 H120 L155 585 H300 L335 550 H535" />
+        <CircuitLine path="M0 675 H80 L115 710 H260 L295 675 H500" />
+        <CircuitLine path="M0 770 H125 L160 805 H305 L340 770 H525" />
 
-        <CircuitLine
-          path="M0 285 H115 L150 320 H290 L325 285 H530"
-          delay={0.2}
-        />
-
-        <CircuitLine
-          path="M0 410 H75 L110 445 H250 L285 410 H490"
-          delay={0.3}
-        />
-
-        <CircuitLine
-          path="M0 550 H120 L155 585 H300 L335 550 H535"
-          delay={0.4}
-        />
-
-        <CircuitLine
-          path="M0 675 H80 L115 710 H260 L295 675 H500"
-          delay={0.5}
-        />
-
-        <CircuitLine
-          path="M0 770 H125 L160 805 H305 L340 770 H525"
-          delay={0.6}
-        />
-
-        <CircuitNode x={95} y={160} delay={0.3} />
-        <CircuitNode x={150} y={320} delay={0.5} />
-        <CircuitNode x={110} y={445} delay={0.7} />
-        <CircuitNode x={335} y={550} delay={0.9} />
-        <CircuitNode x={115} y={710} delay={1.1} />
+        <CircuitNode x={95} y={160} />
+        <CircuitNode x={150} y={320} />
+        <CircuitNode x={110} y={445} />
+        <CircuitNode x={335} y={550} />
+        <CircuitNode x={115} y={710} />
       </svg>
 
       {/* Technical icons */}
@@ -428,7 +436,6 @@ function CircuitDefinitions() {
 
 type CircuitLineProps = {
   path: string;
-  delay: number;
 };
 
 function CircuitLine({
@@ -449,7 +456,6 @@ function CircuitLine({
 type CircuitNodeProps = {
   x: number;
   y: number;
-  delay: number;
 };
 
 function CircuitNode({

@@ -339,15 +339,6 @@
     transition-duration: 0.01ms !important;
   }
 }
-@keyframes project-header-border {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
 
 .project-header {
   position: fixed;
@@ -370,16 +361,57 @@
   animation-timeline: scroll(root block);
   animation-range: 30px 70px;
 }
-[dir="rtl"] {
+/* =========================================================
+   LOCALE AND RESPONSIVE BEHAVIOR
+   ========================================================= */
+
+[data-locale="ar"] {
   font-family: var(--font-arabic), sans-serif;
 }
 
-[dir="rtl"] h1,
-[dir="rtl"] h2,
-[dir="rtl"] h3,
-[dir="rtl"] h4,
-[dir="rtl"] h5,
-[dir="rtl"] h6 {
+[data-locale="ar"] h1,
+[data-locale="ar"] h2,
+[data-locale="ar"] h3,
+[data-locale="ar"] h4,
+[data-locale="ar"] h5,
+[data-locale="ar"] h6 {
   font-family: var(--font-arabic), sans-serif;
   letter-spacing: 0;
+}
+
+/* Keep technical and programming content LTR */
+[dir="ltr"] pre,
+[dir="ltr"] code {
+  direction: ltr;
+  text-align: left;
+}
+
+/* Correct spacing when navigating to sections */
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
+/* Prevent media from causing horizontal scrolling */
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
+/* Prevent Grid and Flex children from overflowing */
+main,
+section,
+article {
+  min-width: 0;
+}
+
+@media (max-width: 640px) {
+  html {
+    scroll-padding-top: 5rem;
+  }
+
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
 }

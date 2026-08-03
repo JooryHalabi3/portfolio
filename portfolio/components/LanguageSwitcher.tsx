@@ -15,8 +15,11 @@ export default function LanguageSwitcher() {
   const pathname = usePathname();
   const router = useRouter();
 
-  const pathSegments = pathname.split("/");
-  const pathLocale = pathSegments[1];
+  const pathSegments = pathname
+    .split("/")
+    .filter(Boolean);
+
+  const pathLocale = pathSegments[0];
 
   const currentLocale: Locale =
     isLocale(pathLocale)
@@ -27,24 +30,38 @@ export default function LanguageSwitcher() {
     getOppositeLocale(currentLocale);
 
   const switchLanguage = () => {
-    const updatedSegments = [...pathSegments];
+    const updatedSegments = [
+      ...pathSegments,
+    ];
 
-    if (isLocale(updatedSegments[1])) {
-      updatedSegments[1] = targetLocale;
+    if (
+      updatedSegments.length > 0 &&
+      isLocale(updatedSegments[0])
+    ) {
+      updatedSegments[0] = targetLocale;
     } else {
-      updatedSegments.splice(1, 0, targetLocale);
+      updatedSegments.unshift(targetLocale);
     }
 
-    const targetPath =
-      updatedSegments.join("/") || `/${targetLocale}`;
+    const targetPath = `/${updatedSegments.join(
+      "/",
+    )}`;
 
+    const currentHash =
+      window.location.hash;
+
+    // Save language for future visits
+    window.localStorage.setItem(
+      "locale",
+      targetLocale,
+    );
+
+    // Keep the cookie temporarily for compatibility
     document.cookie = `locale=${targetLocale}; path=/; max-age=31536000; SameSite=Lax`;
 
     router.push(
-      `${targetPath}${window.location.hash}`,
+      `${targetPath}${currentHash}`,
     );
-
-    router.refresh();
   };
 
   return (

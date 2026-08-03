@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
-  ArrowLeft,
   ArrowUpRight,
   Building2,
   CalendarDays,
@@ -12,9 +10,9 @@ import {
   UserRound,
 } from "lucide-react";
 import { FaGithub } from "react-icons/fa6";
-import Image from "next/image";
-import { PROJECTS } from "@/constants";
+
 import ProjectGallery from "@/components/ProjectGallery";
+import ProjectHeader from "@/components/ProjectHeader";
 import TechnologyIcon from "@/components/TechnologyIcon";
 import {
   Container,
@@ -22,16 +20,27 @@ import {
   Reveal,
 } from "@/components/ui";
 
+import { PROJECTS } from "@/constants";
+import { getDictionary } from "@/dictionaries";
+import {
+  isLocale,
+  locales,
+} from "@/lib/i18n";
+
 type ProjectPageProps = {
   params: Promise<{
+    locale: string;
     slug: string;
   }>;
 };
 
 export function generateStaticParams() {
-  return PROJECTS.map((project) => ({
-    slug: project.slug,
-  }));
+  return locales.flatMap((locale) =>
+    PROJECTS.map((project) => ({
+      locale,
+      slug: project.slug,
+    })),
+  );
 }
 
 export async function generateMetadata({
@@ -40,7 +49,8 @@ export async function generateMetadata({
   const { slug } = await params;
 
   const project = PROJECTS.find(
-    (projectItem) => projectItem.slug === slug,
+    (projectItem) =>
+      projectItem.slug === slug,
   );
 
   if (!project) {
@@ -58,16 +68,23 @@ export async function generateMetadata({
 export default async function ProjectPage({
   params,
 }: ProjectPageProps) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+
+  if (!isLocale(locale)) {
+    notFound();
+  }
 
   const project = PROJECTS.find(
-    (projectItem) => projectItem.slug === slug,
+    (projectItem) =>
+      projectItem.slug === slug,
   );
 
   if (!project) {
     notFound();
   }
 
+  const dictionary = getDictionary(locale);
+const isArabic = locale === "ar";
   const gallery =
     "gallery" in project
       ? project.gallery ?? []
@@ -124,7 +141,8 @@ export default async function ProjectPage({
       : [];
 
   const deployment =
-    "deployment" in project && project.deployment
+    "deployment" in project &&
+    project.deployment
       ? project.deployment
       : {
           hospital: "",
@@ -144,93 +162,71 @@ export default async function ProjectPage({
       id="top"
       className="min-h-screen bg-background"
     >
-{/* Project header */}
-<header className="project-header inset-x-0 top-0 z-50 bg-background/85 backdrop-blur-xl">
-  <Container>
-    <div className="grid h-20 grid-cols-[1fr_auto_1fr] items-center">
-      {/* Back link */}
-      <Link
-        href="/#projects"
-        className="group inline-flex items-center gap-2 justify-self-start text-sm text-text-secondary transition-colors duration-300 hover:text-gold-light"
-      >
-        <ArrowLeft className="h-4 w-4 text-gold transition-transform duration-300 group-hover:-translate-x-1" />
+      <ProjectHeader
+        title={project.title}
+        locale={locale}
+        dictionary={dictionary}
+      />
 
-        <span className="hidden sm:inline">
-          Back to projects
-        </span>
+      <main className="pb-12 pt-32 sm:pb-16">
+        <Container>
+<article
+  dir="ltr"
+  className="mx-auto max-w-6xl"
+>            {/* Project hero and gallery */}
+            <Reveal>
+<section
+  dir="ltr"
+  className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-14"
+>                {/* Project information */}
+<div
+  dir={isArabic ? "rtl" : "ltr"}
+  className={
+    isArabic ? "text-right" : "text-left"
+  }
+>                  <p 
+  dir="auto"
+className="text-xs font-medium uppercase tracking-[0.3em] text-gold sm:text-sm">
+                    {project.category}
+                  </p>
 
-        <span className="sm:hidden">
-          Projects
-        </span>
-      </Link>
+                  <h1
+                    dir="auto"
+                  className="mt-5 font-[var(--font-heading)] text-4xl font-semibold leading-[1.02] tracking-[-0.035em] text-foreground sm:text-5xl lg:text-6xl">
+                    {project.title}
+                  </h1>
 
-      {/* Project name */}
-      <Link
-        href="#top"
-        aria-label="Back to the top of the project"
-        className="hidden max-w-md truncate text-center text-sm font-medium uppercase tracking-[0.22em] text-foreground transition-colors duration-300 hover:text-gold-light md:block"
-      >
-        {project.title}
-      </Link>
+                  <p 
+                    dir="auto"
+                  className="mt-5 text-base leading-8 text-text-secondary sm:text-lg">
+                    {project.description}
+                  </p>
 
-      {/* Logo */}
-      <Link
-        href="/"
-        aria-label="Go to home page"
-        className="flex h-20 items-center justify-self-end"
-      >
-        <Image
-          src="/brand/just-logo.png"
-          alt="Joory Halabi logo"
-          width={64}
-          height={64}
-          priority
-          className="h-12 w-auto object-contain"
-        />
-      </Link>
-    </div>
-  </Container>
-</header>
+                  <div className="mt-7">
+                    <ProjectLinks
+                      github={project.github}
+                      live={project.live}
+                      viewCodeLabel={
+                        dictionary.actions.viewCode
+                      }
+                      liveProjectLabel={
+                        dictionary.actions.liveProject
+                      }
+                    />
+                  </div>
+                </div>
 
-<main className="pb-12 pt-32 sm:pb-16">
-            <Container>
-          <article className="mx-auto max-w-6xl">
-            {/* Project hero and gallery */}
-<Reveal>
-  <section className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-14">
-    {/* Project information */}
-    <div>
-      <p className="text-xs font-medium uppercase tracking-[0.3em] text-gold sm:text-sm">
-        {project.category}
-      </p>
-
-      <h1 className="mt-5 font-[var(--font-heading)] text-4xl font-semibold leading-[1.02] tracking-[-0.035em] text-foreground sm:text-5xl lg:text-6xl">
-        {project.title}
-      </h1>
-
-      <p className="mt-5 text-base leading-8 text-text-secondary sm:text-lg">
-        {project.description}
-      </p>
-
-      <div className="mt-7">
-        <ProjectLinks
-          github={project.github}
-          live={project.live}
-        />
-      </div>
-    </div>
-
-    {/* Project gallery */}
-    {gallery.length > 0 && (
-      <div className="min-w-0">
-        <ProjectGallery
-          images={gallery}
-          compact
-        />
-      </div>
-    )}
-  </section>
-</Reveal>
+                {/* Project gallery */}
+                {gallery.length > 0 && (
+                  <div className="min-w-0">
+                    <ProjectGallery
+                      images={gallery}
+                      compact
+                    />
+                  </div>
+                )}
+              </section>
+            </Reveal>
 
             {/* Project overview */}
             {(overview ||
@@ -239,7 +235,11 @@ export default async function ProjectPage({
               projectType ||
               status) && (
               <Reveal>
-                <ProjectSection title="Project Overview">
+                <ProjectSection
+                  title={
+                    dictionary.project.overview
+                  }
+                >
                   {overview && (
                     <p className="max-w-4xl text-base leading-8 text-text-secondary sm:text-lg">
                       {overview}
@@ -254,7 +254,10 @@ export default async function ProjectPage({
                       {organization && (
                         <InformationCard
                           icon={Building2}
-                          label="Organization"
+                          label={
+                            dictionary.project
+                              .organization
+                          }
                           value={organization}
                         />
                       )}
@@ -262,7 +265,9 @@ export default async function ProjectPage({
                       {duration && (
                         <InformationCard
                           icon={CalendarDays}
-                          label="Duration"
+                          label={
+                            dictionary.project.duration
+                          }
                           value={duration}
                         />
                       )}
@@ -270,7 +275,10 @@ export default async function ProjectPage({
                       {projectType && (
                         <InformationCard
                           icon={UserRound}
-                          label="Project Type"
+                          label={
+                            dictionary.project
+                              .projectType
+                          }
                           value={projectType}
                         />
                       )}
@@ -278,7 +286,9 @@ export default async function ProjectPage({
                       {status && (
                         <InformationCard
                           icon={CheckCircle2}
-                          label="Status"
+                          label={
+                            dictionary.project.status
+                          }
                           value={status}
                         />
                       )}
@@ -291,7 +301,9 @@ export default async function ProjectPage({
             {/* My role */}
             {(role || roleDescription) && (
               <Reveal>
-                <ProjectSection title="My Role">
+                <ProjectSection
+                  title={dictionary.project.role}
+                >
                   {role && (
                     <p className="text-lg font-semibold text-gold-light">
                       {role}
@@ -311,7 +323,9 @@ export default async function ProjectPage({
             {contributions.length > 0 && (
               <Reveal>
                 <ProjectListSection
-                  title="Contributions"
+                  title={
+                    dictionary.project.contributions
+                  }
                   items={contributions}
                 />
               </Reveal>
@@ -321,7 +335,9 @@ export default async function ProjectPage({
             {features.length > 0 && (
               <Reveal>
                 <ProjectListSection
-                  title="Key Features"
+                  title={
+                    dictionary.project.features
+                  }
                   items={features}
                 />
               </Reveal>
@@ -331,7 +347,9 @@ export default async function ProjectPage({
             {challenges.length > 0 && (
               <Reveal>
                 <ProjectListSection
-                  title="Challenges"
+                  title={
+                    dictionary.project.challenges
+                  }
                   items={challenges}
                 />
               </Reveal>
@@ -339,7 +357,11 @@ export default async function ProjectPage({
 
             {/* Technologies */}
             <Reveal>
-              <ProjectSection title="Technologies">
+              <ProjectSection
+                title={
+                  dictionary.project.technologies
+                }
+              >
                 <div className="flex flex-wrap gap-2.5">
                   {project.technologies.map(
                     (technology) => (
@@ -364,7 +386,11 @@ export default async function ProjectPage({
             {(deployment.hospital ||
               deployment.demo) && (
               <Reveal>
-                <ProjectSection title="Deployment">
+                <ProjectSection
+                  title={
+                    dictionary.project.deployment
+                  }
+                >
                   <div className="grid gap-4 sm:grid-cols-2">
                     {deployment.hospital && (
                       <GlassCard
@@ -378,7 +404,10 @@ export default async function ProjectPage({
 
                           <div>
                             <p className="text-xs font-medium uppercase tracking-[0.2em] text-gold">
-                              Hospital Environment
+                              {
+                                dictionary.project
+                                  .hospitalEnvironment
+                              }
                             </p>
 
                             <p className="mt-2 text-sm leading-7 text-foreground sm:text-base">
@@ -401,7 +430,10 @@ export default async function ProjectPage({
 
                           <div>
                             <p className="text-xs font-medium uppercase tracking-[0.2em] text-gold">
-                              Demo Environment
+                              {
+                                dictionary.project
+                                  .demoEnvironment
+                              }
                             </p>
 
                             <p className="mt-2 text-sm leading-7 text-foreground sm:text-base">
@@ -419,7 +451,9 @@ export default async function ProjectPage({
             {/* Project team */}
             {contributors.length > 0 && (
               <Reveal>
-                <ProjectSection title="Project Team">
+                <ProjectSection
+                  title={dictionary.project.team}
+                >
                   <div className="grid gap-4 sm:grid-cols-2">
                     {contributors.map(
                       (contributor, index) => (
@@ -473,24 +507,43 @@ export default async function ProjectPage({
 type ProjectLinksProps = {
   github?: string;
   live?: string;
+  viewCodeLabel: string;
+  liveProjectLabel: string;
 };
 
 function ProjectLinks({
   github,
   live,
+  viewCodeLabel,
+  liveProjectLabel,
 }: ProjectLinksProps) {
   const githubUrl =
-    github && github !== "#" ? github : null;
+    github && github !== "#"
+      ? github
+      : null;
 
   const liveUrl =
-    live && live !== "#" ? live : null;
+    live && live !== "#"
+      ? live
+      : null;
+
+  const hasBothLinks =
+    Boolean(githubUrl) &&
+    Boolean(liveUrl);
 
   if (!githubUrl && !liveUrl) {
     return null;
   }
 
   return (
-    <div className="grid w-full grid-cols-2 gap-3">
+    <div
+      dir="ltr"
+      className={`grid w-full gap-3 ${
+        hasBothLinks
+          ? "grid-cols-2"
+          : "grid-cols-1"
+      }`}
+    >
       {githubUrl && (
         <a
           href={githubUrl}
@@ -499,7 +552,10 @@ function ProjectLinks({
           className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-gold px-4 py-2.5 text-sm font-medium text-gold transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold hover:text-background"
         >
           <FaGithub className="h-4 w-4" />
-          View Code
+
+          <span dir="auto">
+            {viewCodeLabel}
+          </span>
         </a>
       )}
 
@@ -510,7 +566,10 @@ function ProjectLinks({
           rel="noopener noreferrer"
           className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gold px-4 py-2.5 text-sm font-medium text-background transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-light"
         >
-          Live Project
+          <span dir="auto">
+            {liveProjectLabel}
+          </span>
+
           <ArrowUpRight className="h-4 w-4" />
         </a>
       )}
@@ -529,9 +588,12 @@ function ProjectSection({
 }: ProjectSectionProps) {
   return (
     <section className="mt-12 border-t border-brand-border pt-9 sm:mt-14 sm:pt-10">
-      <h2 className="mb-6 font-[var(--font-heading)] text-3xl font-semibold tracking-[-0.025em] text-foreground sm:text-4xl">
-        {title}
-      </h2>
+   <h2
+  dir="auto"
+  className="mb-6 font-[var(--font-heading)] text-3xl font-semibold tracking-[-0.025em] text-foreground sm:text-4xl"
+>
+  {title}
+</h2>
 
       {children}
     </section>
@@ -551,10 +613,11 @@ function ProjectListSection({
     <ProjectSection title={title}>
       <ul className="grid gap-4 sm:grid-cols-2">
         {items.map((item) => (
-          <li
-            key={item}
-            className="flex gap-4 rounded-2xl border border-brand-border bg-surface/20 p-5 text-sm leading-7 text-text-secondary transition-all duration-300 hover:-translate-y-0.5 hover:border-gold/45 sm:text-base"
-          >
+       <li
+  key={item}
+  dir="auto"
+  className="flex gap-4 rounded-2xl border border-brand-border bg-surface/20 p-5 text-sm leading-7 text-text-secondary transition-all duration-300 hover:-translate-y-0.5 hover:border-gold/45 sm:text-base"
+>
             <span
               aria-hidden="true"
               className="mt-2.5 h-2 w-2 shrink-0 rounded-full bg-gold"
@@ -572,6 +635,7 @@ type InformationCardProps = {
   icon: React.ComponentType<{
     className?: string;
   }>;
+
   label: string;
   value: string;
 };
@@ -591,13 +655,19 @@ function InformationCard({
       </div>
 
       <div className="min-w-0">
-        <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-gold">
-          {label}
-        </p>
+   <p
+  dir="auto"
+  className="text-[11px] font-medium uppercase tracking-[0.16em] text-gold"
+>
+  {label}
+</p>
 
-        <p className="mt-1.5 text-sm leading-6 text-foreground">
-          {value}
-        </p>
+<p
+  dir="auto"
+  className="mt-1.5 text-sm leading-6 text-foreground"
+>
+  {value}
+</p>
       </div>
     </GlassCard>
   );

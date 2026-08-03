@@ -1,5 +1,5 @@
 "use client";
-
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import {
   useEffect,
@@ -29,12 +29,14 @@ export default function ProjectGallery({
   images,
   compact = false,
 }: ProjectGalleryProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [activeIndex, setActiveIndex] =
+    useState(0);
 
-  const [failedImages, setFailedImages] = useState<
-    Set<number>
-  >(new Set());
+  const [isExpanded, setIsExpanded] =
+    useState(false);
+
+  const [failedImages, setFailedImages] =
+    useState<Set<number>>(new Set());
 
   useEffect(() => {
     if (!isExpanded) {
@@ -44,9 +46,12 @@ export default function ProjectGallery({
     const previousOverflow =
       document.body.style.overflow;
 
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow =
+      "hidden";
 
-    const handleKeyDown = (event: KeyboardEvent) => {
+    const handleKeyDown = (
+      event: KeyboardEvent,
+    ) => {
       if (event.key === "Escape") {
         setIsExpanded(false);
       }
@@ -68,7 +73,10 @@ export default function ProjectGallery({
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener(
+      "keydown",
+      handleKeyDown,
+    );
 
     return () => {
       document.body.style.overflow =
@@ -91,7 +99,9 @@ export default function ProjectGallery({
     !activeImage.src ||
     failedImages.has(activeIndex);
 
-  const markImageAsFailed = (index: number) => {
+  const markImageAsFailed = (
+    index: number,
+  ) => {
     setFailedImages((current) => {
       const updated = new Set(current);
 
@@ -117,38 +127,52 @@ export default function ProjectGallery({
     );
   };
 
+  const openExpandedView = () => {
+    setIsExpanded(true);
+  };
+
   return (
-<section
-  className={
-    compact
-      ? "min-w-0"
-      : "mt-12 border-t border-brand-border pt-10"
-  }
->      {/* Gallery heading */}
-<div className="flex justify-end">
-          <p className="text-sm text-text-secondary">
-          {activeIndex + 1} / {images.length}
+    <section
+      dir="ltr"
+      className={
+        compact
+          ? "min-w-0"
+          : "mt-12 border-t border-brand-border pt-10"
+      }
+    >
+      {/* Image counter */}
+      <div className="flex justify-end">
+        <p className="text-sm text-text-secondary">
+          {activeIndex + 1} /{" "}
+          {images.length}
         </p>
       </div>
 
-      {/* Compact interface preview */}
-      <div className={`mx-auto overflow-hidden rounded-2xl border border-brand-border bg-surface/30 ${
-  compact
-    ? "mt-6 w-full"
-    : "mt-8 max-w-4xl"
-}`}>
-        {/* Browser-style top bar */}
+      {/* Main gallery preview */}
+      <div
+        className={`mx-auto overflow-hidden rounded-2xl border border-brand-border bg-surface/30 ${
+          compact
+            ? "mt-6 w-full"
+            : "mt-8 max-w-4xl"
+        }`}
+      >
+        {/* Browser-style bar */}
         <div className="flex h-12 items-center justify-between border-b border-brand-border bg-background/40 px-5">
           <div
             aria-hidden="true"
             className="flex items-center gap-2"
           >
             <span className="h-2.5 w-2.5 rounded-full bg-gold/70" />
+
             <span className="h-2.5 w-2.5 rounded-full bg-gold/40" />
+
             <span className="h-2.5 w-2.5 rounded-full bg-gold/20" />
           </div>
 
-          <p className="max-w-[60%] truncate text-xs font-medium uppercase tracking-[0.18em] text-gold-light">
+          <p
+            dir="auto"
+            className="max-w-[60%] truncate text-xs font-medium uppercase tracking-[0.18em] text-gold-light"
+          >
             {activeImage.caption}
           </p>
 
@@ -158,11 +182,23 @@ export default function ProjectGallery({
           />
         </div>
 
-        {/* Clickable image preview */}
+        {/* Clickable preview */}
         <div
-  onClick={() => setIsExpanded(true)}
-  className="group relative aspect-video w-full cursor-zoom-in overflow-hidden bg-gradient-to-br from-surface-light via-surface to-background"
->
+          role="button"
+          tabIndex={0}
+          aria-label={`Open ${activeImage.caption}`}
+          onClick={openExpandedView}
+          onKeyDown={(event) => {
+            if (
+              event.key === "Enter" ||
+              event.key === " "
+            ) {
+              event.preventDefault();
+              openExpandedView();
+            }
+          }}
+          className="group relative aspect-video w-full cursor-zoom-in overflow-hidden bg-gradient-to-br from-surface-light via-surface to-background"
+        >
           {!activeImageFailed ? (
             <Image
               key={`${activeImage.src}-${activeIndex}`}
@@ -173,7 +209,9 @@ export default function ProjectGallery({
               sizes="(min-width: 1024px) 896px, 100vw"
               className="object-contain transition-transform duration-500 group-hover:scale-[1.01]"
               onError={() =>
-                markImageAsFailed(activeIndex)
+                markImageAsFailed(
+                  activeIndex,
+                )
               }
             />
           ) : (
@@ -183,22 +221,23 @@ export default function ProjectGallery({
               </p>
             </div>
           )}
-          {/* Expand button */}
-<button
-  type="button"
-  onClick={(event) => {
-    event.stopPropagation();
-    setIsExpanded(true);
-  }}
-  aria-label={`View details for ${activeImage.caption}`}
-  className="absolute bottom-4 right-4 z-20 inline-flex items-center gap-2 rounded-full border border-gold/40 bg-background/90 px-4 py-2 text-xs text-gold shadow-lg backdrop-blur-md transition-all duration-300 hover:border-gold hover:bg-gold hover:text-background sm:opacity-0 sm:group-hover:opacity-100"
->
-  <Maximize2 className="h-3.5 w-3.5" />
 
-  View details
-</button>
+          {/* View details */}
+          <button
+            type="button"
+            onClick={(event) => {
+              event.stopPropagation();
+              openExpandedView();
+            }}
+            aria-label={`View details for ${activeImage.caption}`}
+            className="absolute bottom-4 right-4 z-20 inline-flex items-center gap-2 rounded-full border border-gold/40 bg-background/90 px-4 py-2 text-xs text-gold shadow-lg backdrop-blur-md transition-all duration-300 hover:border-gold hover:bg-gold hover:text-background sm:opacity-0 sm:group-hover:opacity-100"
+          >
+            <Maximize2 className="h-3.5 w-3.5" />
 
-          {/* Previous interface */}
+            View details
+          </button>
+
+          {/* Previous */}
           {images.length > 1 && (
             <button
               type="button"
@@ -207,13 +246,13 @@ export default function ProjectGallery({
                 showPreviousImage();
               }}
               aria-label="Show previous interface"
-              className="absolute left-4 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-gold/40 bg-background/80 text-gold backdrop-blur-md transition-all hover:border-gold hover:bg-gold hover:text-background"
+              className="absolute left-4 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-gold/40 bg-background/80 text-gold backdrop-blur-md transition-all hover:border-gold hover:bg-gold hover:text-background"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
           )}
 
-          {/* Next interface */}
+          {/* Next */}
           {images.length > 1 && (
             <button
               type="button"
@@ -222,7 +261,7 @@ export default function ProjectGallery({
                 showNextImage();
               }}
               aria-label="Show next interface"
-              className="absolute right-4 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-gold/40 bg-background/80 text-gold backdrop-blur-md transition-all hover:border-gold hover:bg-gold hover:text-background"
+              className="absolute right-4 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-gold/40 bg-background/80 text-gold backdrop-blur-md transition-all hover:border-gold hover:bg-gold hover:text-background"
             >
               <ChevronRight className="h-5 w-5" />
             </button>
@@ -230,108 +269,121 @@ export default function ProjectGallery({
         </div>
       </div>
 
-      {/* Expanded image */}
-      {isExpanded && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={`${activeImage.caption} details`}
-          onClick={() => setIsExpanded(false)}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-background/95 p-4 backdrop-blur-xl sm:p-8"
+    {/* Expanded gallery dialog */}
+{isExpanded &&
+  createPortal(
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="gallery-dialog-title"
+      onClick={() => setIsExpanded(false)}
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-background/65 p-4 backdrop-blur-md sm:p-6"
+    >
+      <div
+        dir="ltr"
+        onClick={(event) =>
+          event.stopPropagation()
+        }
+        className="relative flex max-h-[calc(100dvh-2rem)] w-full max-w-5xl flex-col overflow-hidden rounded-3xl border border-gold/30 bg-surface shadow-[0_30px_120px_rgba(0,0,0,0.65)]"
+      >
+        {/* Close button */}
+        <button
+          type="button"
+          onClick={() =>
+            setIsExpanded(false)
+          }
+          aria-label="Close image preview"
+          className="absolute right-4 top-4 z-30 flex h-10 w-10 items-center justify-center rounded-full border border-gold/40 bg-background/90 text-gold shadow-lg backdrop-blur-md transition-all duration-300 hover:border-gold hover:bg-gold hover:text-background"
         >
-          <div
-            onClick={(event) =>
-              event.stopPropagation()
-            }
-            className="relative flex max-h-[92vh] w-full max-w-6xl flex-col overflow-hidden rounded-2xl border border-brand-border bg-surface shadow-2xl"
-          >
-            {/* Close button */}
-            <button
-              type="button"
-              onClick={() => setIsExpanded(false)}
-              aria-label="Close image preview"
-              className="absolute right-4 top-4 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-gold/40 bg-background/90 text-gold shadow-lg backdrop-blur-md transition-colors hover:bg-gold hover:text-background"
-            >
-              <X className="h-5 w-5" />
-            </button>
+          <X className="h-5 w-5" />
+        </button>
 
-            {/* Large interface image */}
-            <div className="relative min-h-0 flex-1 overflow-hidden bg-background/40">
-              <div className="relative mx-auto aspect-video h-full max-h-[68vh] w-full">
-                {!activeImageFailed ? (
-                  <Image
-                    key={`expanded-${activeImage.src}-${activeIndex}`}
-                    src={activeImage.src}
-                    alt={activeImage.alt}
-                    fill
-                    sizes="(min-width: 1280px) 1152px, 100vw"
-                    className="object-contain"
-                    onError={() =>
-                      markImageAsFailed(activeIndex)
-                    }
-                  />
-                ) : (
-                  <div className="flex h-full items-center justify-center px-8 text-center">
-                    <div>
-                      <p className="text-xs font-medium uppercase tracking-[0.3em] text-gold">
-                        Interface Preview
-                      </p>
+        {/* Image area */}
+        <div className="relative h-[52dvh] min-h-[280px] max-h-[560px] w-full shrink-0 overflow-hidden bg-background/35">
+          {!activeImageFailed ? (
+            <Image
+              key={`expanded-${activeImage.src}-${activeIndex}`}
+              src={activeImage.src}
+              alt={activeImage.alt}
+              fill
+              sizes="(min-width: 1280px) 1024px, 100vw"
+              className="object-contain"
+              onError={() =>
+                markImageAsFailed(
+                  activeIndex,
+                )
+              }
+            />
+          ) : (
+            <div className="flex h-full items-center justify-center px-8 text-center">
+              <div>
+                <p
+                  dir="auto"
+                  className="font-[var(--font-heading)] text-3xl font-medium text-gold-light sm:text-4xl"
+                >
+                  {activeImage.caption}
+                </p>
 
-                      <p className="mt-5 font-[var(--font-heading)] text-4xl font-medium text-gold-gradient sm:text-5xl">
-                        {activeImage.caption}
-                      </p>
-
-                      <p className="mt-4 text-sm text-text-secondary">
-                        Image coming soon
-                      </p>
-                    </div>
-                  </div>
-                )}
-
-                {/* Previous expanded image */}
-                {images.length > 1 && (
-                  <button
-                    type="button"
-                    onClick={showPreviousImage}
-                    aria-label="Show previous interface"
-                    className="absolute left-4 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-gold/40 bg-background/90 text-gold transition-colors hover:bg-gold hover:text-background"
-                  >
-                    <ChevronLeft className="h-5 w-5" />
-                  </button>
-                )}
-
-                {/* Next expanded image */}
-                {images.length > 1 && (
-                  <button
-                    type="button"
-                    onClick={showNextImage}
-                    aria-label="Show next interface"
-                    className="absolute right-4 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-gold/40 bg-background/90 text-gold transition-colors hover:bg-gold hover:text-background"
-                  >
-                    <ChevronRight className="h-5 w-5" />
-                  </button>
-                )}
+                <p className="mt-3 text-sm text-text-secondary">
+                  Image coming soon
+                </p>
               </div>
             </div>
+          )}
 
-            {/* Interface details below image */}
-            <div className="shrink-0 border-t border-brand-border px-6 py-5 sm:px-8">
-              <p className="text-xs font-medium uppercase tracking-[0.22em] text-gold">
-                Interface Details
-              </p>
+          {/* Previous image */}
+          {images.length > 1 && (
+            <button
+              type="button"
+              onClick={showPreviousImage}
+              aria-label="Show previous interface"
+              className="absolute left-4 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-gold/40 bg-background/85 text-gold shadow-lg backdrop-blur-md transition-all duration-300 hover:border-gold hover:bg-gold hover:text-background"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+          )}
 
-              <h3 className="mt-2 font-[var(--font-heading)] text-2xl font-medium text-gold-gradient">
-                {activeImage.caption}
-              </h3>
-
-              <p className="mt-2 max-w-4xl text-sm leading-6 text-text-secondary">
-                {activeImage.description ||
-                  activeImage.alt}
-              </p>
-            </div>
-          </div>
+          {/* Next image */}
+          {images.length > 1 && (
+            <button
+              type="button"
+              onClick={showNextImage}
+              aria-label="Show next interface"
+              className="absolute right-4 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-gold/40 bg-background/85 text-gold shadow-lg backdrop-blur-md transition-all duration-300 hover:border-gold hover:bg-gold hover:text-background"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          )}
         </div>
-      )}
+
+        {/* Interface information */}
+        <div className="shrink-0 border-t border-brand-border bg-surface-light/20 px-6 py-4 sm:flex sm:items-start sm:justify-between sm:gap-8 sm:px-8 sm:py-5">
+          <div
+            dir="auto"
+            className="min-w-0"
+          >
+            <h3
+              id="gallery-dialog-title"
+              className="font-[var(--font-heading)] text-xl font-semibold text-foreground sm:text-2xl"
+            >
+              {activeImage.caption}
+            </h3>
+
+            <p className="mt-1.5 max-w-3xl text-sm leading-6 text-text-secondary">
+              {activeImage.description ||
+                activeImage.alt}
+            </p>
+          </div>
+
+          <span className="mt-3 inline-flex shrink-0 rounded-full border border-brand-border bg-background/30 px-3 py-1.5 text-xs text-gold-light sm:mt-0">
+            {activeIndex + 1} /{" "}
+            {images.length}
+          </span>
+        </div>
+      </div>
+    </div>,
+    document.body,
+  )}
     </section>
   );
 }

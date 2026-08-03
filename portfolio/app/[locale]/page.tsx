@@ -1,18 +1,15 @@
 import { notFound } from "next/navigation";
 
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import SelectedWork from "@/components/SelectedWork";
 import About from "@/components/About";
 import Capabilities from "@/components/Capabilities";
-import Journey from "@/components/Journey";
 import Contact from "@/components/Contact";
+import Hero from "@/components/Hero";
+import Journey from "@/components/Journey";
+import Navbar from "@/components/Navbar";
+import SelectedWork from "@/components/SelectedWork";
 
 import { getDictionary } from "@/dictionaries";
-import {
-  isLocale,
-  type Locale,
-} from "@/lib/i18n";
+import { isLocale } from "@/lib/i18n";
 
 type HomePageProps = {
   params: Promise<{
@@ -23,13 +20,12 @@ type HomePageProps = {
 export default async function HomePage({
   params,
 }: HomePageProps) {
-  const { locale: localeValue } = await params;
+  const { locale } = await params;
 
-  if (!isLocale(localeValue)) {
+  if (!isLocale(locale)) {
     notFound();
   }
 
-  const locale: Locale = localeValue;
   const dictionary = getDictionary(locale);
 
   return (
@@ -39,19 +35,31 @@ export default async function HomePage({
         dictionary={dictionary}
       />
 
-   <main
-  dir="ltr"
-  className="relative overflow-hidden"
->
-<Hero
-  locale={locale}
-  dictionary={dictionary}
-/>  <SelectedWork />
-  <About />
-  <Capabilities />
-  <Journey />
-  <Contact />
-</main>
+      <main className="relative overflow-hidden">
+        <Hero
+          locale={locale}
+          dictionary={dictionary}
+        />
+
+        <SelectedWork
+          locale={locale}
+          dictionary={dictionary}
+        />
+
+        <About
+          locale={locale}
+          dictionary={dictionary}
+        />
+
+        {/* Translation will be added later */}
+        <Capabilities />
+
+        {/* Translation will be added later */}
+        <Journey />
+
+        {/* Translation will be added later */}
+        <Contact />
+      </main>
     </>
   );
 }
