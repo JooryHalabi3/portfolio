@@ -26,18 +26,45 @@ import {
   Terminal,
   Wifi,
 } from "lucide-react";
-
 const INTRO_DURATION = 4200;
+const INTRO_STORAGE_KEY =
+  "portfolio-intro-played";
+let introPlayedInCurrentSession = false;
 
 export default function HeroIntro() {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(
+    () => !introPlayedInCurrentSession,
+  );
+
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
-    if (shouldReduceMotion) {
+    const alreadyPlayed =
+      introPlayedInCurrentSession ||
+      window.sessionStorage.getItem(
+        INTRO_STORAGE_KEY,
+      ) === "true";
+
+    if (alreadyPlayed || shouldReduceMotion) {
+      introPlayedInCurrentSession = true;
+
+      window.sessionStorage.setItem(
+        INTRO_STORAGE_KEY,
+        "true",
+      );
+
       setIsVisible(false);
+      document.body.style.overflow = "";
+
       return;
     }
+
+    introPlayedInCurrentSession = true;
+
+    window.sessionStorage.setItem(
+      INTRO_STORAGE_KEY,
+      "true",
+    );
 
     document.body.style.overflow = "hidden";
 

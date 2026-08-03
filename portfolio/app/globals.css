@@ -370,3 +370,16 @@
   animation-timeline: scroll(root block);
   animation-range: 30px 70px;
 }
+[dir="rtl"] {
+  font-family: var(--font-arabic), sans-serif;
+}
+
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6 {
+  font-family: var(--font-arabic), sans-serif;
+  letter-spacing: 0;
+}
