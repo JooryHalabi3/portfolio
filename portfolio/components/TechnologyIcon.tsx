@@ -121,7 +121,11 @@ export default function TechnologyIcon({
 
         case "nodemailer":
             return <Mail className={className} />;
-
+        case "database":
+        case "database design":
+        case "sql":
+        case "erd":
+            return <Database className={className} />;
         case "ai":
         case "ai api":
         case "ai apis":

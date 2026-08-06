@@ -1,4 +1,5 @@
-import { JOURNEY } from "@/constants";
+import type { Dictionary } from "@/dictionaries";
+import type { Locale } from "@/lib/i18n";
 import {
   Container,
   Reveal,
@@ -6,43 +7,62 @@ import {
   SectionTitle,
 } from "@/components/ui";
 
-export default function Journey() {
+type JourneyProps = {
+  locale: Locale;
+  dictionary: Dictionary;
+};
+
+export default function Journey({
+  locale,
+  dictionary,
+}: JourneyProps) {
+  const isArabic = locale === "ar";
+  const journey = dictionary.journey;
+
   return (
     <Section id="journey">
       <Container>
         <Reveal>
-          <div className="mb-16 flex justify-center text-center md:mb-20">
+          <div
+            dir={isArabic ? "rtl" : "ltr"}
+            className="mb-16 flex justify-center text-center md:mb-20"
+          >
             <SectionTitle
-              subtitle="Journey"
-              title="My Professional Path"
-              description="A timeline of the experiences and milestones that shaped my software engineering journey."
+              subtitle={journey.label}
+              title={journey.title}
+              description={journey.description}
             />
           </div>
         </Reveal>
 
-        <div className="relative mx-auto max-w-4xl">
-          {/* الخط العمودي */}
-          <div className="absolute top-0 bottom-0 left-4 w-px bg-brand-border md:left-1/2 md:-translate-x-1/2" />
+        <div
+          dir="ltr"
+          className="relative mx-auto max-w-4xl"
+        >
+          {/* Timeline */}
+          <div className="absolute bottom-0 left-4 top-0 w-px bg-brand-border md:left-1/2 md:-translate-x-1/2" />
 
           <div className="space-y-10 md:space-y-14">
-            {JOURNEY.map((item, index) => {
+            {journey.items.map((item, index) => {
               const isEven = index % 2 === 0;
 
               return (
                 <Reveal
                   key={`${item.year}-${item.title}`}
-                  direction={isEven ? "right" : "left"}
+                  direction={
+                    isEven ? "right" : "left"
+                  }
                   delay={index * 0.1}
                 >
                   <div className="relative grid md:grid-cols-2 md:gap-14">
-                    {/* نقطة الخط الزمني */}
-                    <div className="absolute top-2 left-4 z-10 h-3 w-3 -translate-x-1/2 rounded-full border border-gold bg-background shadow-[0_0_18px_rgb(214_186_116_/_35%)] md:left-1/2" />
+                    {/* Timeline point */}
+                    <div className="absolute left-4 top-2 z-10 h-3 w-3 -translate-x-1/2 rounded-full border border-gold bg-background shadow-[0_0_18px_rgb(214_186_116_/_35%)] md:left-1/2" />
 
-                    {/* محتوى الجهة اليسرى */}
+                    {/* Left side */}
                     <div
                       className={
                         isEven
-                          ? "ml-10 md:ml-0 md:pr-10 md:text-right"
+                          ? "ml-10 md:ml-0 md:pr-10"
                           : "hidden md:block"
                       }
                     >
@@ -50,12 +70,18 @@ export default function Journey() {
                         <JourneyItem
                           year={item.year}
                           title={item.title}
-                          description={item.description}
+                          description={
+                            item.description
+                          }
+                          direction={
+                            isArabic ? "rtl" : "ltr"
+                          }
+                          alignment="right"
                         />
                       )}
                     </div>
 
-                    {/* محتوى الجهة اليمنى */}
+                    {/* Right side */}
                     <div
                       className={
                         isEven
@@ -67,18 +93,34 @@ export default function Journey() {
                         <JourneyItem
                           year={item.year}
                           title={item.title}
-                          description={item.description}
+                          description={
+                            item.description
+                          }
+                          direction={
+                            isArabic ? "rtl" : "ltr"
+                          }
+                          alignment="left"
                         />
                       )}
                     </div>
 
-                    {/* نسخة الجوال للعناصر التي تقع يسارًا على الديسكتوب */}
+                    {/* Mobile version */}
                     {isEven && (
                       <div className="ml-10 md:hidden">
                         <JourneyItem
                           year={item.year}
                           title={item.title}
-                          description={item.description}
+                          description={
+                            item.description
+                          }
+                          direction={
+                            isArabic ? "rtl" : "ltr"
+                          }
+                          alignment={
+                            isArabic
+                              ? "right"
+                              : "left"
+                          }
                         />
                       </div>
                     )}
@@ -97,15 +139,26 @@ type JourneyItemProps = {
   year: string;
   title: string;
   description: string;
+  direction: "rtl" | "ltr";
+  alignment: "right" | "left";
 };
 
 function JourneyItem({
   year,
   title,
   description,
+  direction,
+  alignment,
 }: JourneyItemProps) {
   return (
-    <article className="border-t border-brand-border pt-5 transition-colors duration-300 hover:border-gold">
+    <article
+      dir={direction}
+      className={`border-t border-brand-border pt-5 transition-colors duration-300 hover:border-gold ${
+        alignment === "right"
+          ? "text-right"
+          : "text-left"
+      }`}
+    >
       <p className="text-xs font-medium uppercase tracking-[0.3em] text-gold">
         {year}
       </p>

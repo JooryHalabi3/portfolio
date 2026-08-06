@@ -55,11 +55,15 @@ export default async function HomePage({
         <Capabilities />
 
         {/* Translation will be added later */}
-        <Journey />
-
+<Journey
+  locale={locale}
+  dictionary={dictionary}
+/>
         {/* Translation will be added later */}
-        <Contact />
-      </main>
+<Contact
+  locale={locale}
+  dictionary={dictionary}
+/>      </main>
     </>
   );
 }

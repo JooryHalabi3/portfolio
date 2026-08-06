@@ -1,4 +1,3 @@
-import { CAPABILITIES } from "@/constants";
 import TechnologyIcon from "@/components/TechnologyIcon";
 import {
   Container,
@@ -7,6 +6,7 @@ import {
   Section,
   SectionTitle,
 } from "@/components/ui";
+import { CAPABILITIES } from "@/constants";
 
 export default function Capabilities() {
   return (
@@ -14,15 +14,14 @@ export default function Capabilities() {
       <Container>
         <Reveal>
           <div className="mb-12 flex justify-center text-center md:mb-16">
-            <SectionTitle
-              subtitle="Capabilities"
-              title="What I Build"
-              description="My primary areas of expertise across backend engineering, databases, full-stack development, mobile applications, and AI integration."
-            />
+            <SectionTitle title="Skills" />
           </div>
         </Reveal>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div
+          dir="ltr"
+          className="grid gap-6 md:grid-cols-2"
+        >
           {CAPABILITIES.map((capability, index) => (
             <Reveal
               key={capability.title}
@@ -35,10 +34,6 @@ export default function Capabilities() {
                 <h3 className="font-[var(--font-heading)] text-2xl font-semibold text-gold-light">
                   {capability.title}
                 </h3>
-
-                <p className="mt-4 leading-7 text-text-secondary">
-                  {capability.description}
-                </p>
 
                 <div className="mt-6 flex flex-wrap gap-2.5">
                   {capability.skills.map((skill) => (

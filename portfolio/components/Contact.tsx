@@ -9,6 +9,8 @@ import {
 } from "react-icons/fa6";
 
 import { CONTACT } from "@/constants";
+import type { Dictionary } from "@/dictionaries";
+import type { Locale } from "@/lib/i18n";
 import {
   Container,
   GlassCard,
@@ -16,7 +18,19 @@ import {
   Section,
   SectionTitle,
 } from "@/components/ui";
-export default function Contact() {
+
+type ContactProps = {
+  locale: Locale;
+  dictionary: Dictionary;
+};
+
+export default function Contact({
+  locale,
+  dictionary,
+}: ContactProps) {
+  const isArabic = locale === "ar";
+  const contact = dictionary.contact;
+
   return (
     <Section id="contact">
       <Container>
@@ -25,7 +39,7 @@ export default function Contact() {
             className="relative overflow-hidden"
             contentClassName="p-7 sm:p-9 lg:p-10"
           >
-            {/* Subtle decorative lines */}
+            {/* Decorative lines */}
             <div
               aria-hidden="true"
               className="pointer-events-none absolute right-0 top-10 h-px w-36 bg-gradient-to-l from-gold/50 to-transparent"
@@ -36,35 +50,50 @@ export default function Contact() {
               className="pointer-events-none absolute right-12 top-10 h-16 w-px bg-gradient-to-b from-gold/30 to-transparent"
             />
 
-<div
-  dir="ltr"
-  className="relative z-10 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16"
->              {/* Left content */}
-              <div>
+            <div
+              dir="ltr"
+              className="relative z-10 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16"
+            >
+              {/* Left content */}
+              <div
+                dir={isArabic ? "rtl" : "ltr"}
+                className={
+                  isArabic
+                    ? "text-right"
+                    : "text-left"
+                }
+              >
                 <SectionTitle
-                  subtitle={CONTACT.label}
-                  title={CONTACT.title}
-                  description={CONTACT.description}
+                  subtitle={contact.label}
+                  title={contact.title}
+                  description={contact.description}
                 />
 
                 {/* Availability */}
                 <div className="mt-7 inline-flex items-center gap-3 rounded-full border border-brand-border px-4 py-2">
-                  <span className="relative flex h-2.5 w-2.5">
+                  <span className="relative flex h-2.5 w-2.5 shrink-0">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold opacity-30" />
 
                     <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gold" />
                   </span>
 
                   <span className="text-sm text-text-secondary">
-                    {CONTACT.availability}
+                    {contact.availability}
                   </span>
                 </div>
               </div>
 
               {/* Right content */}
               <div className="border-t border-brand-border pt-7 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
-                <p className="text-xs font-medium uppercase tracking-[0.25em] text-gold">
-                  Get in touch
+                <p
+                  dir={isArabic ? "rtl" : "ltr"}
+                  className={`text-xs font-medium uppercase text-gold ${
+                    isArabic
+                      ? "text-right tracking-normal"
+                      : "text-left tracking-[0.25em]"
+                  }`}
+                >
+                  {dictionary.common.getInTouch}
                 </p>
 
                 {/* Email */}
@@ -77,12 +106,18 @@ export default function Contact() {
                       <Mail className="h-5 w-5" />
                     </span>
 
-                    <span className="min-w-0">
-                      <span className="block text-xs uppercase tracking-[0.16em] text-text-secondary">
-                        Email
+                    <span className="min-w-0 text-left">
+                      <span
+                        dir={isArabic ? "rtl" : "ltr"}
+                        className="block text-xs uppercase tracking-[0.16em] text-text-secondary"
+                      >
+                        {dictionary.common.email}
                       </span>
 
-                      <span className="mt-1 block truncate text-sm text-foreground sm:text-base">
+                      <span
+                        dir="ltr"
+                        className="mt-1 block truncate text-sm text-foreground sm:text-base"
+                      >
                         {CONTACT.email}
                       </span>
                     </span>
@@ -97,13 +132,20 @@ export default function Contact() {
                     <MapPin className="h-5 w-5" />
                   </span>
 
-                  <span>
+                  <span
+                    dir={isArabic ? "rtl" : "ltr"}
+                    className={
+                      isArabic
+                        ? "text-right"
+                        : "text-left"
+                    }
+                  >
                     <span className="block text-xs uppercase tracking-[0.16em] text-text-secondary">
-                      Location
+                      {dictionary.common.location}
                     </span>
 
                     <span className="mt-1 block text-sm text-foreground sm:text-base">
-                      {CONTACT.location}
+                      {contact.location}
                     </span>
                   </span>
                 </div>
@@ -117,6 +159,7 @@ export default function Contact() {
                     className="inline-flex items-center justify-center gap-2 rounded-xl border border-brand-border px-5 py-3 text-sm font-medium text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-gold hover:text-gold-light"
                   >
                     <FaLinkedinIn className="h-4 w-4 text-gold" />
+
                     LinkedIn
                   </a>
 
@@ -127,10 +170,11 @@ export default function Contact() {
                     className="inline-flex items-center justify-center gap-2 rounded-xl border border-brand-border px-5 py-3 text-sm font-medium text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-gold hover:text-gold-light"
                   >
                     <FaGithub className="h-4 w-4 text-gold" />
+
                     GitHub
                   </a>
                 </div>
-                                     </div>
+              </div>
             </div>
           </GlassCard>
         </Reveal>
